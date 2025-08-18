@@ -4,14 +4,19 @@ import Particles from './Particles';
 
 const HeroSection: React.FC = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative pt-20 overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden"> {/*hidden*/}
 
-      <div className="absolute w-screen h-screen bg-black overflow-hidden">
+      <div className="absolute w-screen h-screen bg-black overflow-hidden"> {/*hidden*/}
+        {/* Background blurred glow */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-[600px] h-[600px] rounded-full bg-blue-500 blur-[250px] opacity-40"></div>
+        </div>
+        
         {/* Particulas de fondo girando */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div style={{ width: '100%', height: '100%', position: 'relative' }}>
             <Particles
-              particleColors={['#ffffff']} //'#f6e05e'
+              particleColors={['#ffffff', '#f6e05e']}
               particleCount={200}
               particleSpread={10}
               speed={0.1}
@@ -23,28 +28,24 @@ const HeroSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Background blurred glow */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-[600px] h-[600px] rounded-full bg-blue-500 blur-[250px] opacity-40"></div>
-        </div>
 
         {/* PARTE DE LA FIGURA DEL MUNDO */}
         {/* Solid vibrant blue horizon 
         */}
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-3/4">
-          <div className="w-[80vw] aspect-[1/1] bg-blue-600 rounded-full"></div>
+          <div className="w-[100vw] aspect-video bg-blue-600 rounded-t-full"></div>
         </div>
 
         {/* White horizon 
         */}
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-3/4">
-          <div className="w-[calc(80vw-20px)] aspect-[1/1] bg-white rounded-full"></div>
+          <div className="w-[calc(100vw-25px)] aspect-video bg-white rounded-t-full"></div>
         </div>
 
         {/* Black horizon 
         */}
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-3/4">
-          <div className="w-[calc(80vw-60px)] aspect-[1/1] bg-black rounded-full"></div>
+            <div className="w-[calc(100vw-85px)] aspect-video bg-black rounded-t-full"></div>
         </div>
 
         {
@@ -92,8 +93,8 @@ const HeroSection: React.FC = () => {
             <span className="text-spark-yellow ml-2 sm:ml-4 drop-shadow-lg">SPARK</span>
           </h1>
 
-          <p className="text-lg sm:text-xl lg:text-2xl font-inter text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed px-4">
-            Impulsa tu creatividad, innovación y confianza a través del desarrollo de proyectos colaborativos en Ingeniería de Software
+          <p className="text-shadow-white sm:text-xl lg:text-2xl font-inter text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed px-4">
+            Impulsa tu creatividad, innovación y <span className='font-bold'>confianza</span> a través del desarrollo de proyectos colaborativos en Ingeniería de Software
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
