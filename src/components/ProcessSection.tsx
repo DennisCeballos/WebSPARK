@@ -52,13 +52,13 @@ const ProcessSection: React.FC = () => {
     <section className="min-h-screen bg-white py-20 px-6 lg:px-12">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-montserrat font-bold text-spark-dark mb-6 px-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-montserrat font-bold text-spark-dark mb-4 px-4">
             Cómo <span className="text-spark-yellow">Iniciar</span>
           </h2>
-          <p className="text-lg sm:text-xl font-inter text-spark-blue max-w-3xl mx-auto px-4">
+          <p className="text-base sm:text-lg font-inter text-spark-blue max-w-3xl mx-auto px-4">
             Nuestro proceso está diseñado para ser simple, inclusivo y orientado al aprendizaje colaborativo
           </p>
-          <div className="w-24 h-1 bg-spark-coral mx-auto mt-6"></div>
+          <div className="w-20 h-1 bg-spark-coral mx-auto mt-4"></div>
         </div>
 
         <div className="relative">
@@ -67,37 +67,40 @@ const ProcessSection: React.FC = () => {
           {/* Mobile Timeline line - left side */}
           <div className="lg:hidden absolute left-8 w-1 h-full bg-gradient-to-b from-spark-yellow via-spark-coral to-spark-blue opacity-30"></div>
 
-          <div className="space-y-12 lg:space-y-16 px-4">
+          <div className="space-y-6 lg:space-y-10 px-4">
             {steps.map((step, index) => {
               const Icon = step.icon;
               const isEven = index % 2 === 0; // Only used for desktop layout
               
               return (
-                <div key={step.id} className={`flex items-center ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} flex-row lg:gap-16 gap-6`}>
+                <div key={step.id} className={`flex items-center ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} flex-row lg:gap-12 gap-4`}>
                   {/* Content */}
                   <div className={`flex-1 ${isEven ? 'lg:text-right' : 'lg:text-left'} text-left`}>
-                    <div className="bg-spark-gray rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 group">
-                      <div className={`hidden lg:flex items-center justify-center lg:${isEven ? 'justify-end' : 'justify-start'} mb-6`}>
-                        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                          <Icon className={`${step.color} group-hover:scale-110 transition-transform duration-300`} size={24} />
-                        </div>
+                    <div className="bg-spark-gray rounded-xl p-4 sm:p-5 shadow-md hover:shadow-lg transition-all duration-300 group relative overflow-hidden">
+                      {/* Background Icon */}
+                      <div className="absolute bottom-0 left-0 transform translate-y-1/2 -translate-x-1/4">
+                        <Icon className={`${step.color} opacity-50`} size={80} />
                       </div>
-                      <h3 className="text-lg sm:text-xl lg:text-2xl font-montserrat font-bold text-spark-dark mb-3 sm:mb-4">
+                      
+                      {/* Content with relative positioning to stay above background icon */}
+                      <div className="relative z-10">
+                      <h3 className="text-base sm:text-lg lg:text-xl font-montserrat font-bold text-spark-dark mb-2 sm:mb-3">
                         {step.title}
                       </h3>
-                      <p className="text-sm sm:text-base lg:text-lg font-inter text-spark-blue leading-relaxed">
+                      <p className="text-sm sm:text-base font-inter text-spark-blue leading-relaxed">
                         {step.description}
                       </p>
+                      </div>
                     </div>
                   </div>
 
                   {/* Step number */}
                   <div className="relative z-10 flex-shrink-0 order-first lg:order-none">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white border-3 sm:border-4 border-spark-yellow rounded-full flex flex-col items-center justify-center shadow-xl relative group">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 bg-white border-2 sm:border-3 border-spark-yellow rounded-full flex flex-col items-center justify-center shadow-lg relative group">
                       {/* Icon - visible on mobile, hidden on desktop */}
-                      <Icon className={`${step.color} lg:hidden`} size={14} />
+                      <Icon className={`${step.color} lg:hidden`} size={12} />
                       {/* Number - visible on mobile below icon, centered on desktop */}
-                      <span className="font-montserrat font-bold text-spark-dark text-xs sm:text-sm lg:text-base lg:text-lg">
+                      <span className="font-montserrat font-bold text-spark-dark text-xs lg:text-sm">
                         {step.id}
                       </span>
                     </div>
@@ -111,15 +114,15 @@ const ProcessSection: React.FC = () => {
           </div>
         </div>
 
-        <div className="text-center mt-16">
-          <div className="bg-spark-yellow/10 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
-            <h3 className="text-xl sm:text-2xl font-montserrat font-bold text-spark-dark mb-4">
+        <div className="text-center mt-10">
+          <div className="bg-spark-yellow/10 rounded-xl p-4 sm:p-6 max-w-xl mx-auto">
+            <h3 className="text-lg sm:text-xl font-montserrat font-bold text-spark-dark mb-3">
               ¿Listo para empezar?
             </h3>
-            <p className="text-sm sm:text-base font-inter text-spark-blue mb-6">
+            <p className="text-sm font-inter text-spark-blue mb-4">
               Únete a nuestra comunidad y comienza tu viaje de aprendizaje colaborativo
             </p>
-            <button className="bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base">
+            <button className="bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-5 sm:px-6 py-2 sm:py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm">
               Explorar Proyectos Disponibles
             </button>
           </div>

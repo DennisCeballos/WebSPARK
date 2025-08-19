@@ -1,40 +1,33 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowRight, Code, Users, Calendar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-interface ProjectPreview {
-  id: string;
-  title: string;
-  technologies: string[];
-  teamSize: number;
-  status: 'recruiting' | 'active';
-}
+import { projectService } from '../services/projectService';
+import { Project } from '../types/Project';
 
 const InvitationSection: React.FC = () => {
   const navigate = useNavigate();
+  const [featuredProjects, setFeaturedProjects] = useState<Project[]>([]);
 
-  const featuredProjects: ProjectPreview[] = [
-    {
-      id: '1',
-      title: 'Sistema de Gestión Académica',
-      technologies: ['React', 'Node.js', 'MongoDB'],
-      teamSize: 5,
-      status: 'recruiting'
-    },
-    {
-      id: '2',
-      title: 'App de Sostenibilidad Campus',
-      technologies: ['React Native', 'Firebase'],
-      teamSize: 4,
-      status: 'active'
-    }
-  ];
+  useEffect(() => {
+    // Subscribe to project updates and get first 2 projects for preview
+    const unsubscribe = projectService.subscribe((projects) => {
+      setFeaturedProjects(projects.slice(0, 2));
+    });
 
-  const getStatusColor = (status: ProjectPreview['status']) => {
+    // Get projects immediately if available in cache
+    projectService.getProjects().then((projects) => {
+      setFeaturedProjects(projects.slice(0, 2));
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const getStatusColor = (status: Project['status']) => {
     return status === 'recruiting' ? 'bg-spark-yellow text-spark-dark' : 'bg-spark-coral text-white';
   };
 
-  const getStatusText = (status: ProjectPreview['status']) => {
+  const getStatusText = (status: Project['status']) => {
     return status === 'recruiting' ? 'Reclutando' : 'En desarrollo';
   };
 
@@ -65,26 +58,31 @@ const InvitationSection: React.FC = () => {
           <div className="relative z-10 grid lg:grid-cols-12 gap-8 p-8 lg:p-12 items-center min-h-[400px]">
             {/* Left Project Card */}
             <div className="lg:col-span-3 order-2 lg:order-1 hidden sm:block">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+              {featuredProjects[0] && (
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
                 <div className="flex justify-between items-start mb-4">
                   <h4 className="text-base sm:text-lg font-montserrat font-semibold text-white leading-tight">
-                    {featuredProjects[0].title}
+                    {featuredProjects[0].nombre || featuredProjects[0].title}
                   </h4>
-                  <span className={`px-2 py-1 rounded-full text-xs font-inter font-medium ${getStatusColor(featuredProjects[0].status)}`}>
-                    {getStatusText(featuredProjects[0].status)}
-                  </span>
+                  {featuredProjects[0].status && (
+                    <span className={`px-2 py-1 rounded-full text-xs font-inter font-medium ${getStatusColor(featuredProjects[0].status)}`}>
+                      {getStatusText(featuredProjects[0].status)}
+                    </span>
+                  )}
                 </div>
                 <div className="space-y-3">
+                  {featuredProjects[0].teamSize && (
                   <div className="flex items-center gap-2">
                     <Users className="text-spark-yellow" size={14} />
                     <span className="font-inter text-sm text-white/80">
                       {featuredProjects[0].teamSize} personas
                     </span>
                   </div>
+                  )}
                   <div className="flex items-center gap-2">
                     <Code className="text-spark-yellow" size={14} />
                     <div className="flex flex-wrap gap-1">
-                      {featuredProjects[0].technologies.slice(0, 2).map((tech, index) => (
+                      {(featuredProjects[0].tecnologias || featuredProjects[0].technologies || []).slice(0, 2).map((tech, index) => (
                         <span key={index} className="bg-white/20 text-white px-2 py-1 rounded text-xs font-inter">
                           {tech}
                         </span>
@@ -93,6 +91,7 @@ const InvitationSection: React.FC = () => {
                   </div>
                 </div>
               </div>
+              )}
             </div>
 
             {/* Center Content */}
@@ -114,26 +113,31 @@ const InvitationSection: React.FC = () => {
 
             {/* Right Project Card */}
             <div className="lg:col-span-3 order-3 hidden sm:block">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+              {featuredProjects[1] && (
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
                 <div className="flex justify-between items-start mb-4">
                   <h4 className="text-base sm:text-lg font-montserrat font-semibold text-white leading-tight">
-                    {featuredProjects[1].title}
+                    {featuredProjects[1].nombre || featuredProjects[1].title}
                   </h4>
-                  <span className={`px-2 py-1 rounded-full text-xs font-inter font-medium ${getStatusColor(featuredProjects[1].status)}`}>
-                    {getStatusText(featuredProjects[1].status)}
-                  </span>
+                  {featuredProjects[1].status && (
+                    <span className={`px-2 py-1 rounded-full text-xs font-inter font-medium ${getStatusColor(featuredProjects[1].status)}`}>
+                      {getStatusText(featuredProjects[1].status)}
+                    </span>
+                  )}
                 </div>
                 <div className="space-y-3">
+                  {featuredProjects[1].teamSize && (
                   <div className="flex items-center gap-2">
                     <Users className="text-spark-coral" size={14} />
                     <span className="font-inter text-sm text-white/80">
                       {featuredProjects[1].teamSize} personas
                     </span>
                   </div>
+                  )}
                   <div className="flex items-center gap-2">
                     <Code className="text-spark-coral" size={14} />
                     <div className="flex flex-wrap gap-1">
-                      {featuredProjects[1].technologies.slice(0, 2).map((tech, index) => (
+                      {(featuredProjects[1].tecnologias || featuredProjects[1].technologies || []).slice(0, 2).map((tech, index) => (
                         <span key={index} className="bg-white/20 text-white px-2 py-1 rounded text-xs font-inter">
                           {tech}
                         </span>
@@ -142,6 +146,7 @@ const InvitationSection: React.FC = () => {
                   </div>
                 </div>
               </div>
+              )}
             </div>
           </div>
         </div>

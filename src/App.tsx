@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { initializeFirestore } from './config/firebase';
+import { projectService } from './services/projectService';
 import SideNavigation from './components/SideNavigation';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
@@ -7,7 +9,38 @@ import ProjectsPage from './pages/ProjectsPage';
 
 function App() {
   const [activeSection, setActiveSection] = useState('hero');
+  const [isFirebaseInitialized, setIsFirebaseInitialized] = useState(false);
   const location = useLocation();
+
+  // Initialize Firebase and start fetching projects
+  useEffect(() => {
+    const initializeApp = async () => {
+      try {
+        // Initialize Firebase persistence
+        await initializeFirestore();
+        setIsFirebaseInitialized(true);
+        
+        // Start fetching projects in parallel (non-blocking)
+        projectService.getProjects().catch(error => {
+          console.error('Failed to fetch initial projects:', error);
+        });
+        
+        // Optionally initialize real-time listener for live updates
+        // projectService.initializeRealtimeListener();
+        
+      } catch (error) {
+        console.error('Failed to initialize Firebase:', error);
+        setIsFirebaseInitialized(true); // Continue without persistence
+      }
+    };
+
+    initializeApp();
+
+    // Cleanup on unmount
+    return () => {
+      projectService.stopRealtimeListener();
+    };
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     if (location.pathname !== '/') {
