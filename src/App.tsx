@@ -95,11 +95,11 @@ function App() {
   return (
     <div className="font-inter">
       <SideNavigation 
-        activeSection={activeSection} 
-        onSectionChange={scrollToSection} 
+      activeSection={activeSection} 
+      onSectionChange={scrollToSection} 
       />
       
-      <main className="ml-0 lg:ml-20">
+      <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />

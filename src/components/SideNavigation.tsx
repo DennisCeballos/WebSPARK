@@ -20,15 +20,18 @@ const SideNavigation: React.FC<NavigationProps> = ({ activeSection, onSectionCha
   ];
 
   const handleNavigation = (item: typeof navItems[0]) => {
+    /*
     if (item.route) {
       navigate(item.route);
     } else {
       onSectionChange(item.id);
     }
+    */
+    onSectionChange(item.id);
   };
 
   return (
-    <nav className="fixed left-0 top-1/2 sm:top-1/3 lg:top-1/2 transform -translate-y-1/2 z-50">
+    <nav className="fixed left-0 top-1/3 sm:top-1/2 lg:top-1/2 transform -translate-y-1/2 z-50">
         <div className="group relative">
           {/* Semicircle background container */}
           <div className="bg-white/95 backdrop-blur-sm shadow-2xl rounded-r-full border-r-2 sm:border-r-3 lg:border-r-4 border-spark-yellow transition-all duration-500 ease-out group-hover:pr-4 sm:group-hover:pr-6 lg:group-hover:pr-8 pr-2 sm:pr-3 lg:pr-4 py-3 sm:py-4 lg:py-6 xl:py-8 pl-2 sm:pl-3 lg:pl-4 xl:pl-6">
@@ -73,9 +76,10 @@ const SideNavigation: React.FC<NavigationProps> = ({ activeSection, onSectionCha
             </div>
           </div>
           
-          {/* Decorative elements */}
+          {/* Decorative elements 
           <div className="absolute top-1 sm:top-2 right-0 w-1 sm:w-1.5 lg:w-2 h-1 sm:h-1.5 lg:h-2 bg-spark-coral rounded-full opacity-60"></div>
           <div className="absolute bottom-1 sm:bottom-2 right-0 w-0.5 sm:w-1 h-0.5 sm:h-1 bg-spark-yellow rounded-full opacity-80"></div>
+          */}
         </div>
     </nav>
   );
