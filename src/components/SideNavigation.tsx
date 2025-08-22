@@ -12,22 +12,28 @@ const SideNavigation: React.FC<NavigationProps> = ({ activeSection, onSectionCha
   const location = useLocation();
 
   const navItems = [
-    { id: 'hero', label: 'Inicio', icon: Home },
-    { id: 'presentation', label: 'Quiénes Somos', icon: Users },
-    { id: 'invitation', label: 'Proyectos', icon: FolderOpen },
-    { id: 'process', label: 'Cómo Iniciar', icon: Play },
-    { id: 'contact', label: 'Contacto', icon: MessageCircle },
+    { id: 'hero', label: 'Inicio', icon: Home, route: '/' },
+    { id: 'presentation', label: 'Quiénes Somos', icon: Users, route: '/#presentation' },
+    { id: 'invitation', label: 'Proyectos', icon: FolderOpen, route: '/#invitation' },
+    { id: 'process', label: 'Cómo Iniciar', icon: Play, route: '/#process' },
+    { id: 'contact', label: 'Contacto', icon: MessageCircle, route: '/#contact' },
   ];
 
   const handleNavigation = (item: typeof navItems[0]) => {
+    // revisar si estamos en la pagina principal
+    if (location.pathname === '/') {
+      onSectionChange(item.id);
+    } else {
+      navigate(item.route);
+      //window.scrollTo(item.id);
+    }
     /*
     if (item.route) {
       navigate(item.route);
     } else {
       onSectionChange(item.id);
-    }
-    */
-    onSectionChange(item.id);
+  }
+  */
   };
 
   return (
@@ -56,15 +62,15 @@ const SideNavigation: React.FC<NavigationProps> = ({ activeSection, onSectionCha
                   key={id}
                   onClick={() => handleNavigation(item)}
                   className={`relative flex items-center transition-all duration-300 group/item ${isActive
-                      ? 'text-spark-dark'
-                      : 'text-spark-blue hover:text-spark-dark'
+                    ? 'text-spark-dark'
+                    : 'text-spark-blue hover:text-spark-dark'
                     }`}
                 >
                   {/* Icon container */}
                   <div
                     className={`flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 rounded-full transition-all duration-300 ${isActive
-                        ? 'bg-spark-yellow shadow-lg scale-110'
-                        : 'bg-spark-gray group-hover/item:bg-spark-yellow/20 group-hover/item:scale-105'
+                      ? 'bg-spark-yellow shadow-lg scale-110'
+                      : 'bg-spark-gray group-hover/item:bg-spark-yellow/20 group-hover/item:scale-105'
                       }`}
                   >
                     <Icon
