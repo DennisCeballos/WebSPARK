@@ -65,6 +65,7 @@ const ProjectsPage: React.FC = () => {
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
+    console.log(project)
     setIsModalOpen(true);
   };
 
