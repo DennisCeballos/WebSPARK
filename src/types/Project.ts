@@ -1,6 +1,7 @@
 export interface Project {
   id: string;
   nombre: string;
+  emoji: string;
   complejidad?: string;
   tituloClickbait: string;
   tecnologias: string[];
