@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight, Zap } from 'lucide-react';
 import Particles from './Particles';
 
 const HeroSection: React.FC = () => {
+  const [randomText, setRandomText] = useState('');
+  
+  // Posibles footers
+  const opcionesFooters = [
+    "Idea. Experimenta. Falla. Aprende. Repite.",
+    "¿Tu portafolio está vacio? Toca hacer algo.",
+    "¿Tienes ideas pero no equipo? Nosotros te conseguimos uno.",
+    "¿Nuevo lenguaje? ¿Nuevas herramientas? Aquí se prueba todo.",
+    "Haz ruido con tus ideas. Aprende haciendo.",
+    "No hace falta tener todo claro. Solo hace falta empezar.",
+    "¿Sin tiempo? ¿Sin ganas? Tal vez solo te falta un buen proyecto."
+  ];
+    
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * opcionesFooters.length);
+    setRandomText(opcionesFooters[randomIndex]);
+  }, []);
+
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden"> {/*hidden*/}
 
@@ -108,6 +126,14 @@ const HeroSection: React.FC = () => {
           </div>
         </div>
       </div>
+
+        {/* Small glowing text at the bottom */}
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-lg text-white text-center">
+          <p className="text-white drop-shadow-[0_0_4px_#f6e05e] animate-fade-in">
+            {randomText}
+          </p>
+        </div>
+
     </section>
   );
 };
