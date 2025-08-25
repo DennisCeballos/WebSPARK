@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, Zap } from 'lucide-react';
 import Particles from './Particles';
+import logo from '../assets/Logo_Mini.svg'
 
 const HeroSection: React.FC = () => {
   const [randomText, setRandomText] = useState('');
-  
+
   // Posibles footers
   const opcionesFooters = [
     "Idea. Experimenta. Falla. Aprende. Repite.",
@@ -15,7 +16,7 @@ const HeroSection: React.FC = () => {
     "No hace falta tener todo claro. Solo hace falta empezar.",
     "¿Sin tiempo? ¿Sin ganas? Tal vez solo te falta un buen proyecto."
   ];
-    
+
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * opcionesFooters.length);
     setRandomText(opcionesFooters[randomIndex]);
@@ -27,9 +28,9 @@ const HeroSection: React.FC = () => {
       <div className="absolute w-screen h-screen bg-black overflow-hidden"> {/*hidden*/}
         {/* Background blurred glow */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-[600px] h-[600px] rounded-full bg-blue-500 blur-[250px] opacity-40"></div>
+          <div className="w-[600px] h-[600px] rounded-full bg-blue-500 blur-[200px] opacity-90 transform translate-y-3/4"></div>
         </div>
-        
+
         {/* Particulas de fondo girando */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -63,7 +64,7 @@ const HeroSection: React.FC = () => {
         {/* Black horizon 
         */}
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-3/4">
-            <div className="w-[calc(100vw-85px)] aspect-video bg-black rounded-t-full"></div>
+          <div className="w-[calc(100vw-85px)] aspect-video bg-black rounded-t-full"></div>
         </div>
 
         {
@@ -76,13 +77,13 @@ const HeroSection: React.FC = () => {
           <div className="w-[850px] h-[530px] bg-blue-600 rounded-t-full"></div>
         </div>
         */}
-        
+
         {/* Outer glow ring
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
           <div className="w-[820px] h-[520px] bg-white to-transparent rounded-t-full"></div>
         </div>
         */}
-        
+
         {/* Inner black core
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
           <div className="w-[800px] h-[500px] bg-black to-transparent rounded-t-full"></div>
@@ -94,15 +95,21 @@ const HeroSection: React.FC = () => {
 
       <div className="container mx-auto px-6 lg:px-12 text-center relative z-10 pt-8 sm:pt-12 lg:pt-16">
         <div className="max-w-4xl mx-auto">
-          {/* Logo with floating animation */}
-          <div className="mb-8 flex justify-center">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 bg-blue-900 rounded-full flex items-center justify-center shadow-2xl animate-float">
-              {/* Current logo - Zap icon (easily replaceable) */}
-              <Zap size={32} className="sm:size-[40px] text-spark-yellow" />
-              {/* 
-                To replace with custom logo, replace the Zap component above with:
-                <img src="/path-to-your-logo.png" alt="SPARK Logo" className="w-8 h-8 sm:w-10 sm:h-10" />
-              */}
+          {/* Container para todo lo del logo */}
+          <div className="h-[20vh] aspect-square flex justify-center items-center mx-auto">
+
+            {/* Logo flotando*/}
+            <div className="relative flex justify-center items-center w-full h-full animate-float">
+              {/* Sombra del logo */}
+              <div className="absolute w-full h-full flex justify-center items-center">
+                <div className="w-[70%] aspect-square bg-spark-gray rounded-full blur-2xl opacity-25">
+                  {/* Zap icon (easily replaceable)
+                <Zap size={32} className="sm:size-[40px] text-spark-yellow" />
+                */}
+                </div>
+              </div>
+              {/* Logo */}
+              <img src={logo} alt="SPARK Logo" className="w-[80%] h-[80%] object-contain relative z-10" />
             </div>
           </div>
 
@@ -127,12 +134,12 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
 
-        {/* Small glowing text at the bottom */}
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-lg text-white text-center">
-          <p className="text-white drop-shadow-[0_0_4px_#f6e05e] animate-fade-in">
-            {randomText}
-          </p>
-        </div>
+      {/* Small glowing text at the bottom */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-lg text-white text-center">
+        <p className="text-white drop-shadow-[0_0_2px_blue] hover:drop-shadow-[0px_2px_2px_blue] animate-fade-in duration-700">
+          {randomText}
+        </p>
+      </div>
 
     </section>
   );
