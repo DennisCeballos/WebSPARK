@@ -17,10 +17,19 @@ const ContactSection: React.FC = () => {
       id: 'whatsapp',
       icon: MessageSquare,
       label: 'WhatsApp',
-      value: '+57 XXX XXX XXXX',
-      link: 'https://wa.me/57XXXXXXXXX',
+      value: 'Comunidad de WhatsApp',
+      link: 'https://chat.whatsapp.com/H5p9xM7Due7BQ73cpXg9Om',
       color: 'text-green-500'
     },
+    {
+      id: 'linkedin',
+      icon: Linkedin,
+      label: 'LinkedIn',
+      value: 'Iniciativa SPARK',
+      link: 'https://www.linkedin.com/company/iniciativa-spark',
+      color: 'text-blue-600'
+    }
+    /*
     {
       id: 'email',
       icon: Mail,
@@ -37,18 +46,11 @@ const ContactSection: React.FC = () => {
       link: 'https://instagram.com/iniciativa_spark',
       color: 'text-pink-500'
     },
-    {
-      id: 'linkedin',
-      icon: Linkedin,
-      label: 'LinkedIn',
-      value: 'Iniciativa SPARK',
-      link: 'https://linkedin.com/company/iniciativa-spark',
-      color: 'text-blue-600'
-    }
+    */
   ];
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-spark-blue to-spark-blue/80 py-20 px-6 lg:px-12 text-white">
+    <section className="min-h-min bg-gradient-to-br from-spark-blue to-spark-blue/80 py-20 px-6 lg:px-12 text-white">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-montserrat font-bold mb-6 px-4">
@@ -90,7 +92,7 @@ const ContactSection: React.FC = () => {
           })}
         </div>
 
-        {/* Campus Info */}
+        {/* Campus Info
         <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 mx-4">
           <div className="flex items-center justify-center gap-3 mb-4">
             <MapPin className="text-spark-yellow" size={20} />
@@ -103,8 +105,9 @@ const ContactSection: React.FC = () => {
             Universidad [Nombre de tu Universidad]
           </p>
         </div>
+        */}
 
-        {/* Call to Action */}
+        {/* Call to Action
         <div className="text-center mt-8 sm:mt-12 px-4">
           <div className="inline-flex flex-col sm:flex-row gap-4">
             <button className="w-full sm:w-auto bg-spark-yellow hover:bg-white text-spark-dark font-inter font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base">
@@ -115,6 +118,7 @@ const ContactSection: React.FC = () => {
             </button>
           </div>
         </div>
+        */}
       </div>
     </section>
   );

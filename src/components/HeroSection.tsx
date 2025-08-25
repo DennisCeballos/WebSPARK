@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Zap } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Particles from './Particles';
 import logo from '../assets/Logo_Mini.svg'
 
@@ -119,15 +119,23 @@ const HeroSection: React.FC = () => {
           </h1>
 
           <p className="text-shadow-white sm:text-xl lg:text-2xl font-inter text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed px-4">
-            Impulsa tu creatividad, innovación y <span className='font-bold'>confianza</span> a través del desarrollo de proyectos colaborativos en Ingeniería de Software
+            Impulsa tu creatividad, innovación y <span className='font-bold'>confianza</span> a través del desarrollo de proyectos colaborativos de Software
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
-            <button className="w-full sm:w-auto bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-6 sm:px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center justify-center gap-2">
+            <button
+              onClick={() => {
+                document.getElementById('invitation')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="w-full sm:w-auto bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-6 sm:px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center justify-center gap-2">
               Inscribirse en un Proyecto
               <ArrowRight size={20} />
             </button>
-            <button className="w-full sm:w-auto border-2 border-white/30 text-white hover:bg-white hover:text-spark-dark font-inter font-semibold px-6 sm:px-8 py-4 rounded-full transition-all duration-300 backdrop-blur-sm">
+            <button
+            onClick={() => {
+                document.getElementById('presentation')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            className="w-full sm:w-auto border-2 border-white/30 text-white hover:bg-white hover:text-spark-dark font-inter font-semibold px-6 sm:px-8 py-4 rounded-full transition-all duration-300 backdrop-blur-sm">
               Conocer Más
             </button>
           </div>

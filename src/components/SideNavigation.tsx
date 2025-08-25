@@ -25,11 +25,13 @@ const SideNavigation: React.FC<NavigationProps> = ({ activeSection, onSectionCha
       onSectionChange(item.id);
     } else {
       navigate(item.route);
+      window.scrollTo({ top: 0, behavior: 'instant' }); // reset scroll
       //window.scrollTo(item.id);
     }
     /*
     if (item.route) {
       navigate(item.route);
+      window.scrollTo({ top: 0, behavior: 'instant' }); // reset scroll
     } else {
       onSectionChange(item.id);
   }

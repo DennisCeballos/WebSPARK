@@ -107,7 +107,10 @@ const ProjectsPage: React.FC = () => {
       <div className="bg-white py-6 px-6 lg:px-12 shadow-sm">
         <div className="container mx-auto max-w-6xl">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => {
+              navigate('/')
+              window.scrollTo({ top: 0, behavior: 'instant' }); // reset scroll
+            }}
             className="flex items-center gap-3 text-spark-blue hover:text-spark-dark transition-colors duration-300 group"
           >
             <ArrowLeft className="group-hover:-translate-x-1 transition-transform duration-300" size={20} />
@@ -277,7 +280,9 @@ const ProjectsPage: React.FC = () => {
               <p className="text-sm sm:text-base font-inter text-spark-blue mb-6">
                 ¡Propón tu propia idea de proyecto! Estamos siempre abiertos a nuevas iniciativas
               </p>
-              <button className="bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base">
+              <button
+              onClick={() => window.location.href = "https://forms.office.com/Pages/ResponsePage.aspx?id=C7UJMpu33EOfxI1CxAbdYXviU2CVXtNKpQgpf6kSlDJUREhMR1EyRk5GS0Q0U0NXV0tCUThMOUYzOC4u"}
+              className="bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base">
                 Proponer un Proyecto
               </button>
             </div>
