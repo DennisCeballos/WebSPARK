@@ -7,18 +7,18 @@ const PresentationSection: React.FC = () => {
   const benefits = [
     {
       icon: Users,
-      title: "Equipos colaborativos",
-      description: "Conecta con estudiantes que comparten tus intereses y forma equipos increíbles"
+      title: "Encuentra equipos colaborativos",
+      description: "Conecta con estudiantes que comparten tus intereses y forma equipos de confianza"
     },
     {
       icon: Code,
-      title: "Nuevas tecnologías",
-      description: "Explora herramientas modernas sin la presión de la perfección académica"
+      title: "Aprende nuevas tecnologías",
+      description: "Explora herramientas nuevas sin la presión de la perfección académica"
     },
     {
       icon: Lightbulb,
-      title: "Proyectos reales",
-      description: "Desarrolla experiencia práctica que enriquezca tu portafolio profesional"
+      title: "Haz crecer tu portafolio",
+      description: "Desarrolla experiencia práctica en proyectos que te permita enriquecer tu portafolio profesional"
     }
   ];
 
@@ -36,13 +36,13 @@ const PresentationSection: React.FC = () => {
           
           <div className="max-w-4xl mx-auto px-4">
             <p className="text-lg sm:text-xl font-inter text-spark-blue leading-relaxed mb-8">
-              En <strong className="text-spark-dark">Iniciativa SPARK</strong> creamos un espacio donde los estudiantes de Ingeniería de Software 
-              pueden <span className="text-spark-coral font-semibold">impulsar su creatividad e innovación</span> a través del desarrollo 
+              En <strong className="text-spark-dark">Iniciativa SPARK</strong> proponemos la creación de grupos de estudio en donde estudiantes
+              puedan <span className="text-spark-coral font-semibold">impulsar su creatividad e innovación</span> a través del desarrollo 
               de proyectos colaborativos sin fines de lucro.
             </p>
             
             <p className="text-base sm:text-lg font-inter text-spark-blue leading-relaxed mb-12">
-              Aquí es válido equivocarse, experimentar y aprender en el proceso. Te ayudamos a perder el miedo 
+              Aquí es válido <strong className="text-spark-dark">equivocarse, experimentar y aprender</strong> en el proceso. Te ayudamos a perder el miedo 
               a explorar nuevas tecnologías mientras construyes un portafolio que realmente demuestre tus habilidades.
             </p>
           </div>
@@ -69,10 +69,14 @@ const PresentationSection: React.FC = () => {
 
         <div className="text-center">
           <button
-            onClick={() => navigate('/about')}
+            onClick={() => {
+              navigate('/about');
+              window.scrollTo({ top: 0, behavior: 'instant' }); // reset scroll
+            }
+            }
             className="bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-8 sm:px-10 py-4 sm:py-5 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-3 mx-auto text-base sm:text-lg"
             >
-            Únete a nuestra comunidad
+            Conoce más de nosotros
             <ArrowRight size={24} />
           </button>
         </div>

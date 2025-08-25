@@ -24,6 +24,7 @@ class ProjectService {
   private readonly hardcodedProjects: Project[] = [
     {
       id: '1',
+      emoji: '✖️',
       nombre: 'Sistema de Gestión Académica',
       tituloClickbait: '¡Revoluciona la gestión académica con esta plataforma!',
       tecnologias: ['React', 'Node.js', 'MongoDB', 'TypeScript'],
@@ -34,6 +35,7 @@ class ProjectService {
     },
     {
       id: '2',
+      emoji: '✖️',
       nombre: 'App de Sostenibilidad Campus',
       tituloClickbait: '¡Salva el planeta desde tu campus con esta app!',
       tecnologias: ['React Native', 'Firebase', 'Python'],
@@ -44,6 +46,7 @@ class ProjectService {
     },
     {
       id: '3',
+      emoji: '✖️',
       nombre: 'Portal de Empleo Universitario',
       tituloClickbait: '¡Encuentra tu trabajo soñado con esta plataforma!',
       tecnologias: ['Vue.js', 'Django', 'PostgreSQL'],
@@ -54,6 +57,7 @@ class ProjectService {
     },
     {
       id: '4',
+      emoji: '✖️',
       nombre: 'Sistema de Biblioteca Digital',
       tituloClickbait: '¡La biblioteca del futuro está aquí!',
       tecnologias: ['Angular', 'Spring Boot', 'MySQL'],
@@ -64,6 +68,7 @@ class ProjectService {
     },
     {
       id: '5',
+      emoji: '✖️',
       nombre: 'App de Carpooling Estudiantil',
       tituloClickbait: '¡Comparte viajes y ahorra dinero con otros estudiantes!',
       tecnologias: ['Flutter', 'Node.js', 'MongoDB'],
@@ -74,6 +79,7 @@ class ProjectService {
     },
     {
       id: '6',
+      emoji: '✖️',
       nombre: 'Plataforma de Tutorías',
       tituloClickbait: '¡Conecta con tutores expertos y mejora tus notas!',
       tecnologias: ['React', 'Express', 'PostgreSQL'],
@@ -151,6 +157,7 @@ class ProjectService {
         const data = doc.data();
         firebaseProjects.push({
           id: doc.id,
+          emoji: data.emoji || '',
           nombre: data.nombre || '',
           tituloClickbait: data.tituloClickbait || '',
           tecnologias: data.tecnologias || [],
@@ -207,6 +214,7 @@ class ProjectService {
             const data = doc.data();
             projects.push({
               id: doc.id,
+              emoji: data.emoji || '',
               nombre: data.nombre || '',
               tituloClickbait: data.tituloClickbait || '',
               tecnologias: data.tecnologias || [],

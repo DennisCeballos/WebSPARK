@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, UserPlus, Users, Rocket, Trophy } from 'lucide-react';
 
 interface ProcessStep {
@@ -10,6 +11,7 @@ interface ProcessStep {
 }
 
 const ProcessSection: React.FC = () => {
+  const navigate = useNavigate();
   const steps: ProcessStep[] = [
     {
       id: 1,
@@ -22,14 +24,14 @@ const ProcessSection: React.FC = () => {
       id: 2,
       icon: UserPlus,
       title: 'Inscríbete',
-      description: 'Selecciona el proyecto que más te interese y completa tu inscripción con tus datos y experiencia.',
+      description: 'Selecciona el proyecto que más te interese y completa tu inscripción con tus datos.',
       color: 'text-spark-coral'
     },
     {
       id: 3,
       icon: Users,
       title: 'Formación de Equipos',
-      description: 'Recopilamos las inscripciones y formamos equipos balanceados para que trabajen juntos de manera efectiva.',
+      description: 'Recopilamremos las inscripciones y formaremos equipos que trabajen juntos de manera efectiva.',
       color: 'text-spark-blue'
     },
     {
@@ -71,7 +73,7 @@ const ProcessSection: React.FC = () => {
             {steps.map((step, index) => {
               const Icon = step.icon;
               const isEven = index % 2 === 0; // Only used for desktop layout
-              
+
               return (
                 <div key={step.id} className={`flex items-center ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} flex-row lg:gap-12 gap-4`}>
                   {/* Content */}
@@ -81,15 +83,15 @@ const ProcessSection: React.FC = () => {
                       <div className="absolute bottom-0 left-0 transform translate-y-1/2 -translate-x-1/4">
                         <Icon className={`${step.color} opacity-50`} size={80} />
                       </div>
-                      
+
                       {/* Content with relative positioning to stay above background icon */}
                       <div className="relative z-10">
-                      <h3 className="text-base sm:text-lg lg:text-xl font-montserrat font-bold text-spark-dark mb-2 sm:mb-3">
-                        {step.title}
-                      </h3>
-                      <p className="text-sm sm:text-base font-inter text-spark-blue leading-relaxed">
-                        {step.description}
-                      </p>
+                        <h3 className="text-base sm:text-lg lg:text-xl font-montserrat font-bold text-spark-dark mb-2 sm:mb-3">
+                          {step.title}
+                        </h3>
+                        <p className="text-sm sm:text-base font-inter text-spark-blue leading-relaxed">
+                          {step.description}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -120,9 +122,14 @@ const ProcessSection: React.FC = () => {
               ¿Listo para empezar?
             </h3>
             <p className="text-sm font-inter text-spark-blue mb-4">
-              Únete a nuestra comunidad y comienza tu viaje de aprendizaje colaborativo
+              Elige el proyecto que más te llame la atención y preparate para el trabajo en groupp
             </p>
-            <button className="bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-5 sm:px-6 py-2 sm:py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm">
+            <button
+              onClick={() => {
+                navigate('/projects')
+                window.scrollTo({ top: 0, behavior: 'instant' }); // reset scroll
+              }}
+              className="bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-5 sm:px-6 py-2 sm:py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm">
               Explorar Proyectos Disponibles
             </button>
           </div>
