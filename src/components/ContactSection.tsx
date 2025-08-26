@@ -50,14 +50,14 @@ const ContactSection: React.FC = () => {
   ];
 
   return (
-    <section className="min-h-min bg-gradient-to-br from-spark-blue to-spark-blue/80 py-20 px-6 lg:px-12 text-white">
-      <div className="container mx-auto max-w-4xl">
+    <section className="min-h-screen bg-gradient-to-br from-spark-blue to-spark-blue/80 py-20 px-6 lg:px-12 text-white flex items-center">
+      <div className="container mx-auto max-w-4xl h-full">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-montserrat font-bold mb-6 px-4">
             Conecta con <span className="text-spark-yellow">Nosotros</span>
           </h2>
           <p className="text-lg sm:text-xl font-inter opacity-90 max-w-2xl mx-auto px-4">
-            ¿Tienes preguntas, ideas o quieres formar parte de nuestra comunidad? 
+            ¿Tienes preguntas, ideas o quieres formar parte de nuestra comunidad?
             Estamos aquí para apoyarte en tu viaje de aprendizaje
           </p>
           <div className="w-24 h-1 bg-spark-yellow mx-auto mt-6"></div>
@@ -107,18 +107,16 @@ const ContactSection: React.FC = () => {
         </div>
         */}
 
-        {/* Call to Action
+        {/* Redireccion a la web de Notion Antigua */}
         <div className="text-center mt-8 sm:mt-12 px-4">
           <div className="inline-flex flex-col sm:flex-row gap-4">
-            <button className="w-full sm:w-auto bg-spark-yellow hover:bg-white text-spark-dark font-inter font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base">
-              Unirse a la Comunidad
-            </button>
-            <button className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-spark-blue font-inter font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 text-sm sm:text-base">
-              Proponer un Proyecto
-            </button>
+            <a
+              href='https://foggy-princess-ad0.notion.site/Iniciativa-SPARK-1b74bba3c2e180a39df0caa8e9df4f71?source=copy_link'
+              className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-spark-blue font-inter font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 text-sm sm:text-base">
+              Web Antigua
+            </a>
           </div>
         </div>
-        */}
       </div>
     </section>
   );
