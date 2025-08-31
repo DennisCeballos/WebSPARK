@@ -1,5 +1,6 @@
 export interface Project {
   id: string;
+  nroOrden: number;
   nombre: string;
   emoji: string;
   complejidad?: string;

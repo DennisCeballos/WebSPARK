@@ -1,4 +1,4 @@
-import { collection, getDocs, onSnapshot, Timestamp } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { Project } from '../types/Project';
 
@@ -24,6 +24,7 @@ class ProjectService {
   private readonly hardcodedProjects: Project[] = [
     {
       id: '1',
+      nroOrden: 100,
       emoji: '✖️',
       nombre: 'Sistema de Gestión Académica',
       tituloClickbait: '¡Revoluciona la gestión académica con esta plataforma!',
@@ -35,6 +36,7 @@ class ProjectService {
     },
     {
       id: '2',
+      nroOrden: 100,
       emoji: '✖️',
       nombre: 'App de Sostenibilidad Campus',
       tituloClickbait: '¡Salva el planeta desde tu campus con esta app!',
@@ -46,6 +48,7 @@ class ProjectService {
     },
     {
       id: '3',
+      nroOrden: 100,
       emoji: '✖️',
       nombre: 'Portal de Empleo Universitario',
       tituloClickbait: '¡Encuentra tu trabajo soñado con esta plataforma!',
@@ -57,6 +60,7 @@ class ProjectService {
     },
     {
       id: '4',
+      nroOrden: 100,
       emoji: '✖️',
       nombre: 'Sistema de Biblioteca Digital',
       tituloClickbait: '¡La biblioteca del futuro está aquí!',
@@ -68,6 +72,7 @@ class ProjectService {
     },
     {
       id: '5',
+      nroOrden: 100,
       emoji: '✖️',
       nombre: 'App de Carpooling Estudiantil',
       tituloClickbait: '¡Comparte viajes y ahorra dinero con otros estudiantes!',
@@ -79,6 +84,7 @@ class ProjectService {
     },
     {
       id: '6',
+      nroOrden: 100,
       emoji: '✖️',
       nombre: 'Plataforma de Tutorías',
       tituloClickbait: '¡Conecta con tutores expertos y mejora tus notas!',
@@ -150,13 +156,19 @@ class ProjectService {
 
     try {
       console.log('Fetching projects from Firebase...');
-      const querySnapshot = await getDocs(collection(db, 'proyectos'));
+      const proyectosQuery = query(
+        collection(db, 'proyectos'),
+        orderBy('nroOrden', 'asc')
+      );
+
+      const querySnapshot = await getDocs(proyectosQuery);
       const firebaseProjects: Project[] = [];
       
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         firebaseProjects.push({
           id: doc.id,
+          nroOrden: data.nroOrden,
           emoji: data.emoji || '',
           nombre: data.nombre || '',
           tituloClickbait: data.tituloClickbait || '',
@@ -214,6 +226,7 @@ class ProjectService {
             const data = doc.data();
             projects.push({
               id: doc.id,
+              nroOrden: data.nroOrden,
               emoji: data.emoji || '',
               nombre: data.nombre || '',
               tituloClickbait: data.tituloClickbait || '',
