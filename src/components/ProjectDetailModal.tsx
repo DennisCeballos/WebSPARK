@@ -54,7 +54,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
     >
 
       <div
-        className={`relative w-full max-w-6xl h-[80vh] bg-white shadow-2xl transition-all duration-300 transform ${isAnimating ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
+        className={`relative w-full max-w-6xl h-[80dvh] bg-white shadow-2xl transition-all duration-300 transform ${isAnimating ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
           }`}
       >
 

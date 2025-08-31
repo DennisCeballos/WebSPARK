@@ -96,7 +96,7 @@ const HeroSection: React.FC = () => {
       <div className="container mx-auto px-6 lg:px-12 text-center relative z-10 pt-8 sm:pt-12 lg:pt-16">
         <div className="max-w-4xl mx-auto">
           {/* Container para todo lo del logo */}
-          <div className="h-[20vh] aspect-square flex justify-center items-center mx-auto">
+          <div className="h-[20dvh] aspect-square flex justify-center items-center mx-auto">
 
             {/* Logo flotando*/}
             <div className="relative flex justify-center items-center w-full h-full animate-float">

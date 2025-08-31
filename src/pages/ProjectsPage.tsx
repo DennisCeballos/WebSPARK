@@ -187,7 +187,7 @@ const ProjectsPage: React.FC = () => {
                 <div key={project.id} className="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 sm:hover:-translate-y-2">
                   {/* Project Header */}
                   <div className="p-4 sm:p-6 border-b border-spark-gray">
-                    <div className='h-[5vh] aspect-square flex justify-center items-center mx-auto'>
+                    <div className='h-[5dvh] aspect-square flex justify-center items-center mx-auto'>
                       <EmojiRender text={project.emoji} size={35} />
                     </div>
                     <div className="flex justify-between items-start mb-4">
