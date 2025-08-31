@@ -6,6 +6,7 @@ import SideNavigation from './components/SideNavigation';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ProjectsPage from './pages/ProjectsPage';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const [activeSection, setActiveSection] = useState('hero');
@@ -94,11 +95,11 @@ function App() {
 
   return (
     <div className="font-inter">
+      <ScrollToTop />
       <SideNavigation 
       activeSection={activeSection} 
       onSectionChange={scrollToSection} 
       />
-      
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />

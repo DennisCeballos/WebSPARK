@@ -71,7 +71,6 @@ const PresentationSection: React.FC = () => {
           <button
             onClick={() => {
               navigate('/about');
-              window.scrollTo({ top: 0, behavior: 'instant' }); // reset scroll
             }
             }
             className="bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-8 sm:px-10 py-4 sm:py-5 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-3 mx-auto text-base sm:text-lg"

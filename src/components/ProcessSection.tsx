@@ -127,7 +127,6 @@ const ProcessSection: React.FC = () => {
             <button
               onClick={() => {
                 navigate('/projects')
-                window.scrollTo({ top: 0, behavior: 'instant' }); // reset scroll
               }}
               className="bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-5 sm:px-6 py-2 sm:py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm">
               Explorar Proyectos Disponibles

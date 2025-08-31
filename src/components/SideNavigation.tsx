@@ -10,6 +10,7 @@ interface NavigationProps {
 const SideNavigation: React.FC<NavigationProps> = ({ activeSection, onSectionChange }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [pendingSection, setPendingSection] = React.useState<string | null>(null);
 
   const navItems = [
     { id: 'hero', label: 'Inicio', icon: Home, route: '/' },
@@ -20,23 +21,27 @@ const SideNavigation: React.FC<NavigationProps> = ({ activeSection, onSectionCha
   ];
 
   const handleNavigation = (item: typeof navItems[0]) => {
-    // revisar si estamos en la pagina principal
     if (location.pathname === '/') {
       onSectionChange(item.id);
+      const element = document.getElementById(item.id);
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
     } else {
-      navigate(item.route);
-      window.scrollTo({ top: 0, behavior: 'instant' }); // reset scroll
-      //window.scrollTo(item.id);
+      setPendingSection(item.id); // remember what section to scroll to
+      navigate('/');
     }
-    /*
-    if (item.route) {
-      navigate(item.route);
-      window.scrollTo({ top: 0, behavior: 'instant' }); // reset scroll
-    } else {
-      onSectionChange(item.id);
-  }
-  */
   };
+
+  React.useEffect(() => {
+    if (location.pathname === '/' && pendingSection) {
+      const element = document.getElementById(pendingSection);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        onSectionChange(pendingSection);
+      }
+      setPendingSection(null); // clear after scrolling
+    }
+  }, [location, pendingSection, onSectionChange]);
+
 
   return (
     <nav className="fixed left-0 top-1/3 sm:top-1/2 lg:top-1/2 transform -translate-y-1/2 z-50">

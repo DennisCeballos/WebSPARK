@@ -107,7 +107,6 @@ const InvitationSection: React.FC = () => {
               <button
                 onClick={() => {
                   navigate('/projects')
-                  window.scrollTo({ top: 0, behavior: 'instant' }); // reset scroll
                 }}
                 className="bg-spark-yellow hover:bg-white text-spark-dark font-inter font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-3 mx-auto text-base sm:text-lg"
               >

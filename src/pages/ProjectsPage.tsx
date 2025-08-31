@@ -109,7 +109,6 @@ const ProjectsPage: React.FC = () => {
           <button
             onClick={() => {
               navigate('/')
-              window.scrollTo({ top: 0, behavior: 'instant' }); // reset scroll
             }}
             className="flex items-center gap-3 text-spark-blue hover:text-spark-dark transition-colors duration-300 group"
           >
