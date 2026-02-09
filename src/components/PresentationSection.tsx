@@ -23,43 +23,45 @@ const PresentationSection: React.FC = () => {
   ];
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-spark-gray to-white py-20 px-6 lg:px-12 flex items-center">
+    <section className="min-h-screen bg-gradient-to-br from-spark-gray to-white px-6 lg:px-12 flex items-center">
+      <div className="w-full py-10">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-montserrat font-bold text-spark-dark mb-6 leading-tight px-4">
+        <div className="text-center mb-8 max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl pt-10 lg:text-5xl font-montserrat font-bold text-spark-dark mb-6 leading-tight px-4">
             ¿Te faltan equipos de <span className="text-spark-yellow">proyectos</span>?
           </h2>
-          <h3 className="text-xl sm:text-2xl lg:text-3xl font-montserrat font-semibold text-spark-coral mb-8 px-4">
+          <h3 className="text-xl sm:text-2xl lg:text-3xl font-montserrat font-semibold text-spark-coral mb-4 px-4">
             ¿Quisieras aprender nuevos conceptos de forma práctica?
           </h3>
-          <div className="w-24 h-1 bg-spark-coral mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-spark-coral mx-auto mb-4"></div>
           
-          <div className="max-w-4xl mx-auto px-4">
-            <p className="text-lg sm:text-xl font-inter text-spark-blue leading-relaxed mb-8">
+          
+            <p className="text-lg sm:text-xl font-inter text-spark-blue leading-relaxed mb-6">
               En <strong className="text-spark-dark">Iniciativa SPARK</strong> proponemos la creación de grupos de estudio en donde estudiantes
               puedan <span className="text-spark-coral font-semibold">impulsar su creatividad e innovación</span> a través del desarrollo 
               de proyectos colaborativos sin fines de lucro.
             </p>
             
-            <p className="text-base sm:text-lg font-inter text-spark-blue leading-relaxed mb-12">
+            <p className="text-base sm:text-lg font-inter text-spark-blue leading-relaxed mb-4">
               Aquí es válido <strong className="text-spark-dark">equivocarse, experimentar y aprender</strong> en el proceso. Te ayudamos a perder el miedo 
               a explorar nuevas tecnologías mientras construyes un portafolio que realmente demuestre tus habilidades.
             </p>
-          </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 px-4">
+        <div className="flex gap-6 mb-4 px-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 pt-2 justify-start md:justify-center">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
-              <div key={index} className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 group text-center">
+              <div
+                key={index}
+                className="rounded-2xl p-6 sm:p-8 shadow-md hover:shadow-lg transition-all duration-300 group text-center min-w-[280px] max-w-[320px] snap-start flex flex-col">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-spark-yellow/10 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:bg-spark-yellow/20 transition-colors duration-300">
                   <Icon className="text-spark-coral group-hover:scale-110 transition-transform duration-300" size={24} />
                 </div>
                 <h4 className="text-lg sm:text-xl font-montserrat font-semibold text-spark-dark mb-3 sm:mb-4">
                   {benefit.title}
                 </h4>
-                <p className="text-sm sm:text-base font-inter text-spark-blue leading-relaxed">
+                <p className="text-sm sm:text-base font-inter text-spark-blue leading-relaxed flex-1">
                   {benefit.description}
                 </p>
               </div>
@@ -79,6 +81,7 @@ const PresentationSection: React.FC = () => {
             <ArrowRight size={24} />
           </button>
         </div>
+      </div>
       </div>
     </section>
   );
