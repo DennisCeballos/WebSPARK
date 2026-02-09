@@ -57,8 +57,8 @@ const PresentationSection: React.FC = () => {
                   className="relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-spark-gray shadow-[8px_8px_16px_rgba(0,0,0,0.05),_-4px_-4px_12px_rgba(255,255,255,0.8)] hover:shadow-[10px_10px_18px_rgba(0,0,0,0.08),_-6px_-6px_14px_rgba(255,255,255,0.9)] transition-all duration-300 min-w-[280px] max-w-[320px] snap-start flex flex-col"
                 >
                   {/* Icono en esquina con “resplandor” */}
-                  <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/4">
-                    <Icon className="text-spark-coral opacity-40 blur-[0.5px]" size={80} />
+                  <div className="absolute bottom-0 left-0 -translate-y-0.5 translate-x-2">
+                    <Icon className="text-spark-coral opacity-20" size={100} />
                   </div>
 
                   <div className="relative z-10 flex-1">
