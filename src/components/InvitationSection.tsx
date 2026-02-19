@@ -5,24 +5,40 @@ import { useNavigate } from 'react-router-dom';
 import { projectService } from '../services/projectService';
 import { Project } from '../types/Project';
 import EmojiRender from './EmojiRender';
+import { motion } from 'framer-motion';
 
 const InvitationSection: React.FC = () => {
   const navigate = useNavigate();
   const [featuredProjects, setFeaturedProjects] = useState<Project[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     // Subscribe to project updates and get first 2 projects for preview
     const unsubscribe = projectService.subscribe((projects) => {
-      setFeaturedProjects(projects.slice(0, 2));
+      setFeaturedProjects(projects);
     });
 
     // Get projects immediately if available in cache
     projectService.getProjects().then((projects) => {
-      setFeaturedProjects(projects.slice(0, 2));
+      setFeaturedProjects(projects);
     });
 
     return unsubscribe;
   }, []);
+
+
+  useEffect(() => {
+    if (featuredProjects.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) =>
+        prev + 2 >= featuredProjects.length ? 0 : prev + 2
+      );
+    }, 4000); // cambia cada 4s
+
+    return () => clearInterval(interval);
+  }, [featuredProjects]);
+
 
   const getStatusColor = (status: Project['status']) => {
     return status === 'recruiting' ? 'bg-spark-yellow text-spark-dark' : 'bg-spark-coral text-white';
@@ -31,6 +47,11 @@ const InvitationSection: React.FC = () => {
   const getStatusText = (status: Project['status']) => {
     return status === 'recruiting' ? 'Reclutando' : 'En desarrollo';
   };
+
+  const visibleProjects = featuredProjects.slice(
+    currentIndex,
+    currentIndex + 2
+  );
 
   return (
     <section className="min-h-screen bg-white py-20 px-6 lg:px-12 flex items-center">
@@ -59,32 +80,39 @@ const InvitationSection: React.FC = () => {
           <div className="relative z-10 grid lg:grid-cols-12 gap-8 p-8 lg:p-12 items-center min-h-[400px]">
             {/* Left Project Card */}
             <div className="lg:col-span-3 order-2 lg:order-1 hidden sm:block">
-              {featuredProjects[0] && (
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+              {visibleProjects[0] && (
+                <motion.div
+                    key={visibleProjects[0]?.id ?? currentIndex}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.5 }}
+                    className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300"
+                  >
                   <div className="flex justify-between items-start mb-4">
                     <h4 className="text-base sm:text-lg font-montserrat font-semibold text-white leading-tight">
-                      {featuredProjects[0].emoji}
-                      {featuredProjects[0].nombre || featuredProjects[0].title}
+                      {visibleProjects[0].emoji}
+                      {visibleProjects[0].nombre || visibleProjects[0].title}
                     </h4>
-                    {featuredProjects[0].status && (
-                      <span className={`px-2 py-1 rounded-full text-xs font-inter font-medium ${getStatusColor(featuredProjects[0].status)}`}>
-                        {getStatusText(featuredProjects[0].status)}
+                    {visibleProjects[0].status && (
+                      <span className={`px-2 py-1 rounded-full text-xs font-inter font-medium ${getStatusColor(visibleProjects[0].status)}`}>
+                        {getStatusText(visibleProjects[0].status)}
                       </span>
                     )}
                   </div>
                   <div className="space-y-3">
-                    {featuredProjects[0].teamSize && (
+                    {visibleProjects[0].teamSize && (
                       <div className="flex items-center gap-2">
                         <Users className="text-spark-yellow" size={14} />
                         <span className="font-inter text-sm text-white/80">
-                          {featuredProjects[0].teamSize} personas
+                          {visibleProjects[0].teamSize} personas
                         </span>
                       </div>
                     )}
                     <div className="flex items-center gap-2">
                       <Code className="text-spark-yellow" size={14} />
                       <div className="flex flex-wrap gap-1">
-                        {(featuredProjects[0].tecnologias || featuredProjects[0].technologies || []).slice(0, 2).map((tech, index) => (
+                        {(visibleProjects[0].tecnologias || visibleProjects[0].technologies || []).slice(0, 2).map((tech, index) => (
                           <span key={index} className="bg-white/20 text-white px-2 py-1 rounded text-xs font-inter">
                             {tech}
                           </span>
@@ -92,7 +120,7 @@ const InvitationSection: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
             </div>
 
@@ -117,31 +145,38 @@ const InvitationSection: React.FC = () => {
 
             {/* Right Project Card */}
             <div className="lg:col-span-3 order-3 hidden sm:block">
-              {featuredProjects[1] && (
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+              {visibleProjects[1] && (
+                <motion.div
+                  key={visibleProjects[0]?.id ?? currentIndex}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300"
+                >
                   <div className="flex justify-between items-start mb-4">
                     <h4 className="text-base sm:text-lg font-montserrat font-semibold text-white leading-tight">
-                      {featuredProjects[1].emoji} {featuredProjects[1].nombre || featuredProjects[1].title}
+                      {visibleProjects[1].emoji} {visibleProjects[1].nombre || visibleProjects[1].title}
                     </h4>
-                    {featuredProjects[1].status && (
-                      <span className={`px-2 py-1 rounded-full text-xs font-inter font-medium ${getStatusColor(featuredProjects[1].status)}`}>
-                        {getStatusText(featuredProjects[1].status)}
+                    {visibleProjects[1].status && (
+                      <span className={`px-2 py-1 rounded-full text-xs font-inter font-medium ${getStatusColor(visibleProjects[1].status)}`}>
+                        {getStatusText(visibleProjects[1].status)}
                       </span>
                     )}
                   </div>
                   <div className="space-y-3">
-                    {featuredProjects[1].teamSize && (
+                    {visibleProjects[1].teamSize && (
                       <div className="flex items-center gap-2">
                         <Users className="text-spark-coral" size={14} />
                         <span className="font-inter text-sm text-white/80">
-                          {featuredProjects[1].teamSize} personas
+                          {visibleProjects[1].teamSize} personas
                         </span>
                       </div>
                     )}
                     <div className="flex items-center gap-2">
                       <Code className="text-spark-coral" size={14} />
                       <div className="flex flex-wrap gap-1">
-                        {(featuredProjects[1].tecnologias || featuredProjects[1].technologies || []).slice(0, 2).map((tech, index) => (
+                        {(visibleProjects[1].tecnologias || visibleProjects[1].technologies || []).slice(0, 2).map((tech, index) => (
                           <span key={index} className="bg-white/20 text-white px-2 py-1 rounded text-xs font-inter">
                             {tech}
                           </span>
@@ -149,7 +184,7 @@ const InvitationSection: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
             </div>
           </div>
