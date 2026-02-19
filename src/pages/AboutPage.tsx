@@ -57,17 +57,14 @@ const AboutPage: React.FC = () => {
           <div className="text-wrap mb-16">
             <div className="max-w-4xl mx-auto px-4">
               <p className="text-lg sm:text-xl font-inter text-spark-blue leading-relaxed mb-8">
-                Somos un grupo de estudiantes comprometidos con
-                <strong className="text-spark-dark">fomentar la confianza y la iniciativa en el desarrollo de proyectos y actividades grupales</strong>.
+                Somos un grupo de estudiantes comprometidos con <strong className="text-spark-dark">fomentar la confianza y la iniciativa en el desarrollo de proyectos y actividades grupales</strong>.
                 Creemos en la importancia de aprender haciendo, pero sabemos que dar los primeros
-                pasos puede ser desafiante. Por ello, queremos brindarte el apoyo necesario para que
-                <span className="text-spark-coral font-semibold">inicies tu camino sin miedo a equivocarte</span>.
+                pasos puede ser desafiante. Por ello, queremos brindarte el apoyo necesario para que <span className="text-spark-coral font-semibold">inicies tu camino sin miedo a equivocarte</span>.
               </p>
 
               <p className="text-base sm:text-lg font-inter text-spark-blue leading-relaxed mb-12">
-                Nuestro objetivo es <strong className="text-spark-dark">crear un ambiente colaborativo y seguro</strong>
-                en el que puedas comenzar a construir tu portafolio, conectar con otros apasionados por la programación y experimentar el
-                <span className="text-spark-coral font-semibold">trabajo en equipo</span> sin presiones.
+                Nuestro objetivo es <strong className="text-spark-dark">crear un ambiente colaborativo y seguro</strong> en
+                el que puedas comenzar a construir tu portafolio, conectar con otros apasionados por la programación y experimentar el <span className="text-spark-coral font-semibold">trabajo en equipo</span> sin presiones.
               </p>
             </div>
           </div>
@@ -109,11 +106,11 @@ const AboutPage: React.FC = () => {
             <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-spark-dark text-center mb-8 sm:mb-12 px-4">
               Nuestros <span className="text-spark-coral">Objetivos</span>
             </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-4">
+            <div className="flex flex-wrap justify-center gap-6 sm:gap-8 px-4">
               {objectives.map((objective, index) => {
                 const Icon = objective.icon;
                 return (
-                  <div key={index} className="text-center group">
+                  <div key={index} className="text-center group w-full sm:w-[45%] lg:w-[30%] max-w-xs">
                     <div className="w-16 h-16 sm:w-20 sm:h-20 bg-spark-yellow/10 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:bg-spark-yellow/20 transition-colors duration-300">
                       <Icon className="text-spark-blue group-hover:text-spark-dark transition-colors duration-300" size={24} />
                     </div>
