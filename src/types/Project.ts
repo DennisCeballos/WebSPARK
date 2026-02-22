@@ -1,8 +1,7 @@
 export interface Project {
-  id: string;
-  nroOrden: number;
   nombre: string;
   emoji: string;
+  nroOrden: number;
   complejidad?: string;
   tituloClickbait: string;
   tecnologias: string[];
@@ -14,14 +13,6 @@ export interface Project {
   conceptosAprender?: string[];
   imagenes?: string[];
   ultimaActualizacion?: string;
-  
-  // Legacy fields for backward compatibility with hardcoded data
-  title?: string;
-  description?: string;
-  technologies?: string[];
-  teamSize?: number;
-  duration?: string;
-  status?: 'active' | 'recruiting' | 'completed';
 }
 
 

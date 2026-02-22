@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { ArrowRight, Code, Users, Calendar } from 'lucide-react';
+import { ArrowRight, Code } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { projectService } from '../services/projectService';
 import { Project } from '../types/Project';
@@ -39,15 +39,6 @@ const InvitationSection: React.FC = () => {
     return () => clearInterval(interval);
   }, [featuredProjects]);
 
-
-  const getStatusColor = (status: Project['status']) => {
-    return status === 'recruiting' ? 'bg-spark-yellow text-spark-dark' : 'bg-spark-coral text-white';
-  };
-
-  const getStatusText = (status: Project['status']) => {
-    return status === 'recruiting' ? 'Reclutando' : 'En desarrollo';
-  };
-
   const visibleProjects = featuredProjects.slice(
     currentIndex,
     currentIndex + 2
@@ -82,7 +73,7 @@ const InvitationSection: React.FC = () => {
             <div className="lg:col-span-3 order-2 lg:order-1 hidden sm:block">
               {visibleProjects[0] && (
                 <motion.div
-                    key={visibleProjects[0]?.id ?? currentIndex}
+                    key={visibleProjects[0]?.nombre ?? currentIndex}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
@@ -91,28 +82,14 @@ const InvitationSection: React.FC = () => {
                   >
                   <div className="flex justify-between items-start mb-4">
                     <h4 className="text-base sm:text-lg font-montserrat font-semibold text-white leading-tight">
-                      {visibleProjects[0].emoji}
-                      {visibleProjects[0].nombre || visibleProjects[0].title}
+                      <EmojiRender text={visibleProjects[0].emoji} size={25} /> {visibleProjects[0].nombre}
                     </h4>
-                    {visibleProjects[0].status && (
-                      <span className={`px-2 py-1 rounded-full text-xs font-inter font-medium ${getStatusColor(visibleProjects[0].status)}`}>
-                        {getStatusText(visibleProjects[0].status)}
-                      </span>
-                    )}
                   </div>
                   <div className="space-y-3">
-                    {visibleProjects[0].teamSize && (
-                      <div className="flex items-center gap-2">
-                        <Users className="text-spark-yellow" size={14} />
-                        <span className="font-inter text-sm text-white/80">
-                          {visibleProjects[0].teamSize} personas
-                        </span>
-                      </div>
-                    )}
                     <div className="flex items-center gap-2">
                       <Code className="text-spark-yellow" size={14} />
                       <div className="flex flex-wrap gap-1">
-                        {(visibleProjects[0].tecnologias || visibleProjects[0].technologies || []).slice(0, 2).map((tech, index) => (
+                        {(visibleProjects[0].tecnologias || []).slice(0, 2).map((tech, index) => (
                           <span key={index} className="bg-white/20 text-white px-2 py-1 rounded text-xs font-inter">
                             {tech}
                           </span>
@@ -147,7 +124,7 @@ const InvitationSection: React.FC = () => {
             <div className="lg:col-span-3 order-3 hidden sm:block">
               {visibleProjects[1] && (
                 <motion.div
-                  key={visibleProjects[0]?.id ?? currentIndex}
+                  key={visibleProjects[0]?.nombre?? currentIndex}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
@@ -156,27 +133,14 @@ const InvitationSection: React.FC = () => {
                 >
                   <div className="flex justify-between items-start mb-4">
                     <h4 className="text-base sm:text-lg font-montserrat font-semibold text-white leading-tight">
-                      {visibleProjects[1].emoji} {visibleProjects[1].nombre || visibleProjects[1].title}
+                      <EmojiRender text={visibleProjects[1].emoji} size={25} /> {visibleProjects[1].nombre}
                     </h4>
-                    {visibleProjects[1].status && (
-                      <span className={`px-2 py-1 rounded-full text-xs font-inter font-medium ${getStatusColor(visibleProjects[1].status)}`}>
-                        {getStatusText(visibleProjects[1].status)}
-                      </span>
-                    )}
                   </div>
                   <div className="space-y-3">
-                    {visibleProjects[1].teamSize && (
-                      <div className="flex items-center gap-2">
-                        <Users className="text-spark-coral" size={14} />
-                        <span className="font-inter text-sm text-white/80">
-                          {visibleProjects[1].teamSize} personas
-                        </span>
-                      </div>
-                    )}
                     <div className="flex items-center gap-2">
                       <Code className="text-spark-coral" size={14} />
                       <div className="flex flex-wrap gap-1">
-                        {(visibleProjects[1].tecnologias || visibleProjects[1].technologies || []).slice(0, 2).map((tech, index) => (
+                        {(visibleProjects[1].tecnologias || []).slice(0, 2).map((tech, index) => (
                           <span key={index} className="bg-white/20 text-white px-2 py-1 rounded text-xs font-inter">
                             {tech}
                           </span>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { ArrowLeft, ExternalLink, Calendar, Users, Code, Eye } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Code, Eye } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { projectService } from '../services/projectService';
 import { Project } from '../types/Project';
@@ -77,29 +77,11 @@ const ProjectsPage: React.FC = () => {
     setSelectedProject(null);
   };
 
-  // Helper function to get display values (handles both Firebase and hardcoded data)
-  const getProjectTitle = (project: Project) => project.nombre || project.title || '';
-  const getProjectDescription = (project: Project) => project.tituloClickbait || project.description || '';
-  const getProjectTechnologies = (project: Project) => project.tecnologias || project.technologies || [];
+  // Helper function to get display values
+  const getProjectTitle = (project: Project) => project.nombre || '';
+  const getProjectDescription = (project: Project) => project.tituloClickbait || '';
+  const getProjectTechnologies = (project: Project) => project.tecnologias || [];
   const getProjectLink = (project: Project) => project.enlaceInscripcion || '#';
-
-  const getStatusColor = (status: Project['status']) => {
-    switch (status) {
-      case 'recruiting': return 'bg-spark-yellow text-spark-dark';
-      case 'active': return 'bg-spark-coral text-white';
-      case 'completed': return 'bg-spark-blue text-white';
-      default: return 'bg-gray-500 text-white';
-    }
-  };
-
-  const getStatusText = (status: Project['status']) => {
-    switch (status) {
-      case 'recruiting': return 'Reclutando';
-      case 'active': return 'En desarrollo';
-      case 'completed': return 'Completado';
-      default: return status;
-    }
-  };
 
   return (
     <div className="min-h-screen bg-spark-gray">
@@ -184,7 +166,7 @@ const ProjectsPage: React.FC = () => {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-4">
               {projects.map((project) => (
-                <div key={project.id} className="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 sm:hover:-translate-y-2">
+                <div key={project.nombre} className="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 sm:hover:-translate-y-2">
                   {/* Project Header */}
                   <div className="p-4 sm:p-6 border-b border-spark-gray">
                     <div className='h-[5dvh] aspect-square flex justify-center items-center mx-auto'>
@@ -194,11 +176,6 @@ const ProjectsPage: React.FC = () => {
                       <h3 className="text-lg sm:text-xl font-montserrat font-semibold text-spark-dark leading-tight">
                         {getProjectTitle(project)}
                       </h3>
-                      {project.status && (
-                        <span className={`px-3 py-1 rounded-full text-xs font-inter font-medium ${getStatusColor(project.status)}`}>
-                          {getStatusText(project.status)}
-                        </span>
-                      )}
                     </div>
                     <p className="text-sm sm:text-base font-inter text-spark-blue leading-relaxed">
                       {getProjectDescription(project)}
@@ -208,22 +185,6 @@ const ProjectsPage: React.FC = () => {
                   {/* Project Details */}
                   <div className="p-4 sm:p-6">
                     <div className="space-y-4 mb-6">
-                      {project.teamSize && (
-                        <div className="flex items-center gap-3">
-                          <Users className="text-spark-coral" size={16} />
-                          <span className="font-inter text-sm text-spark-blue">
-                            Equipo de {project.teamSize} personas
-                          </span>
-                        </div>
-                      )}
-                      {project.duration && (
-                        <div className="flex items-center gap-3">
-                          <Calendar className="text-spark-coral" size={16} />
-                          <span className="font-inter text-sm text-spark-blue">
-                            Duración: {project.duration}
-                          </span>
-                        </div>
-                      )}
                       <div className="flex items-center gap-3">
                         <Code className="text-spark-coral" size={16} />
                         <div className="flex flex-wrap gap-2 mt-2">

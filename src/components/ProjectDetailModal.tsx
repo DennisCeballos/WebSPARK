@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, ExternalLink, Calendar, Users, Code, Target, Lightbulb, BookOpen } from 'lucide-react';
+import { X, ExternalLink, Code, Target, Lightbulb, BookOpen } from 'lucide-react';
 import { Project } from '../types/Project';
 import ReactMarkdown from "react-markdown";
 import EmojiRender from './EmojiRender';
@@ -46,9 +46,9 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
 
   if (!isOpen || !project) return null;
 
-  const getProjectTitle = (project: Project) => project.nombre || project.title || '';
-  const getProjectDescription = (project: Project) => project.tituloClickbait || project.description || '';
-  const getProjectTechnologies = (project: Project) => project.tecnologias || project.technologies || [];
+  const getProjectTitle = (project: Project) => project.nombre || '';
+  const getProjectDescription = (project: Project) => project.tituloClickbait || '';
+  const getProjectTechnologies = (project: Project) => project.tecnologias || [];
   const getProjectLink = (project: Project) => project.enlaceInscripcion || '#';
 
   return (
@@ -146,18 +146,6 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
 
                 {/* Quick stats - Compact on mobile */}
                 <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm">
-                  {project.teamSize && (
-                    <div className="flex items-center gap-1">
-                      <Users className="text-spark-coral flex-shrink-0" size={12} />
-                      <span className="text-spark-blue truncate">{project.teamSize} personas</span>
-                    </div>
-                  )}
-                  {project.duration && (
-                    <div className="flex items-center gap-1">
-                      <Calendar className="text-spark-coral flex-shrink-0" size={12} />
-                      <span className="text-spark-blue truncate">{project.duration}</span>
-                    </div>
-                  )}
                   {project.origen && (
                     <div className="flex items-center gap-1">
                       <Target className="text-spark-coral flex-shrink-0" size={12} />
