@@ -164,71 +164,114 @@ const ProjectsPage: React.FC = () => {
               <p className="mt-4 text-spark-blue font-inter">Cargando proyectos...</p>
             </div>
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-4">
-              {projects.map((project) => (
-                <div key={project.nombre} className="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 sm:hover:-translate-y-2">
-                  {/* Project Header */}
-                  <div className="p-4 sm:p-6 border-b border-spark-gray">
-                    <div className='h-[5dvh] aspect-square flex justify-center items-center mx-auto'>
-                      <EmojiRender text={project.emoji} size={35} />
-                    </div>
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-lg sm:text-xl font-montserrat font-semibold text-spark-dark leading-tight">
-                        {getProjectTitle(project)}
-                      </h3>
-                    </div>
-                    <p className="text-sm sm:text-base font-inter text-spark-blue leading-relaxed">
-                      {getProjectDescription(project)}
-                    </p>
-                  </div>
+            <div className="flex flex-col gap-8 px-4">
+              {projects.map((project, index) => {
+                const isEven = index % 2 === 1;
+                const hasImages = project.imagenes && project.imagenes.length > 0;
+                const imageUrl = hasImages ? project.imagenes![0] : null;
 
-                  {/* Project Details */}
-                  <div className="p-4 sm:p-6">
-                    <div className="space-y-4 mb-6">
-                      <div className="flex items-center gap-3">
-                        <Code className="text-spark-coral" size={16} />
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          {getProjectTechnologies(project).map((tech, index) => (
-                            index === 0 ? (
-                              // estilo unico para el primer item
-                              <span
-                                key={index}
-                                className="inline-flex items-center justify-center px-3 py-1 text-sm font-bold leading-ti rounded-lg bg-purple-200 outline outline-2 outline-purple-500">
-                                {tech}
-                              </span>
-                            ) : (
-                              // estilo default para el resto
-                              <span
-                                key={index}
-                                className="bg-spark-yellow/20 text-spark-dark px-1 py-1 rounded text-s font-inter font-medium">
-                                {tech}
-                              </span>
-                            )
-                          ))}
+                return (
+                  <div
+                    key={project.nombre}
+                    className="bg-white rounded-2xl shadow-lg overflow-hidden group transition-all duration-300
+                    hover:border hover:border-spark-coral
+                    sm:hover:-translate-y-2 flex flex-col md:flex-row h-[280px]"
+                  >
+                    {/* IMAGE (desktop only) */}
+                    <div
+                      className={`
+                        hidden md:block md:w-1/3 h-full
+                        ${isEven ? 'md:order-2' : 'md:order-1'}
+                      `}
+                    >
+                      {imageUrl ? (
+                        <img
+                          src={imageUrl}
+                          alt={project.nombre}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-sky-400 via-blue-500 to-cyan-400" />
+                      )}
+                    </div>
+
+                    {/* CONTENT */}
+                    <div
+                      className={`
+                        flex flex-col justify-between p-5 sm:p-6 flex-1
+                        ${isEven ? 'md:order-1' : 'md:order-2'}
+                      `}
+                    >
+                      <div className="flex flex-col h-full">
+
+                        {/* TOP */}
+                        <div>
+                          {/* Title + Emoji */}
+                          <div className="flex items-center gap-3 mb-3">
+                            <EmojiRender text={project.emoji} size={28} />
+                            <h3 className="text-lg sm:text-xl font-montserrat font-bold text-spark-dark leading-tight">
+                              {getProjectTitle(project)}
+                            </h3>
+                          </div>
+
+                          {/* Clickbait */}
+                          <p className="text-sm sm:text-base font-inter text-spark-blue leading-relaxed">
+                            {getProjectDescription(project)}
+                          </p>
+                        </div>
+
+                        {/* SPACER */}
+                        <div className="flex-grow" />
+
+                        {/* TECHNOLOGIES */}
+                        <div className="flex items-start gap-3 mb-3">
+                          <Code className="text-spark-coral mt-1" size={16} />
+                          <div className="flex flex-wrap gap-2">
+                            {getProjectTechnologies(project).map((tech, index) =>
+                              index === 0 ? (
+                                <span
+                                  key={index}
+                                  className="inline-flex items-center justify-center px-3 py-1 text-sm font-bold rounded-lg bg-purple-200 outline outline-2 outline-purple-500"
+                                >
+                                  {tech}
+                                </span>
+                              ) : (
+                                <span
+                                  key={index}
+                                  className="bg-spark-yellow/20 text-spark-dark px-2 py-1 rounded text-xs sm:text-sm font-inter font-medium"
+                                >
+                                  {tech}
+                                </span>
+                              )
+                            )}
+                          </div>
+                        </div>
+
+                        {/* BUTTONS */}
+                        <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                          <a
+                            href={getProjectLink(project)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 bg-spark-blue hover:bg-spark-yellow text-white hover:text-spark-dark font-inter font-semibold py-2 sm:py-3 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
+                          >
+                            Inscribirse
+                            <ExternalLink size={16} />
+                          </a>
+
+                          <button
+                            onClick={() => handleProjectClick(project)}
+                            className="flex-1 bg-spark-gray hover:bg-spark-coral/20 text-spark-blue hover:text-spark-dark font-inter font-medium py-2 sm:py-3 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base border border-spark-blue/20 hover:border-spark-coral"
+                          >
+                            Ver detalles
+                            <Eye size={16} />
+                          </button>
                         </div>
                       </div>
                     </div>
-
-                    <a
-                      href={getProjectLink(project)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full bg-spark-blue hover:bg-spark-yellow text-white hover:text-spark-dark font-inter font-semibold py-2 sm:py-3 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group-hover:shadow-md text-sm sm:text-base mb-3"
-                    >
-                      Inscribirse al proyecto
-                      <ExternalLink size={16} />
-                    </a>
-
-                    <button
-                      onClick={() => handleProjectClick(project)}
-                      className="w-full bg-spark-gray hover:bg-spark-coral/20 text-spark-blue hover:text-spark-dark font-inter font-medium py-2 sm:py-3 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base border border-spark-blue/20 hover:border-spark-coral"
-                    >
-                      Ver detalles completos
-                      <Eye size={16} />
-                    </button>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
@@ -241,8 +284,8 @@ const ProjectsPage: React.FC = () => {
                 ¡Propón tu propia idea de proyecto! Estamos siempre abiertos a nuevas iniciativas
               </p>
               <button
-              onClick={() => window.location.href = "https://forms.office.com/Pages/ResponsePage.aspx?id=C7UJMpu33EOfxI1CxAbdYXviU2CVXtNKpQgpf6kSlDJUREhMR1EyRk5GS0Q0U0NXV0tCUThMOUYzOC4u"}
-              className="bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base">
+                onClick={() => window.location.href = "https://forms.office.com/Pages/ResponsePage.aspx?id=C7UJMpu33EOfxI1CxAbdYXviU2CVXtNKpQgpf6kSlDJUREhMR1EyRk5GS0Q0U0NXV0tCUThMOUYzOC4u"}
+                className="bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base">
                 Proponer un Proyecto
               </button>
             </div>
