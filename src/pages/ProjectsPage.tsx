@@ -138,18 +138,38 @@ const ProjectsPage: React.FC = () => {
 
       <section className="py-20 px-6 lg:px-12">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-montserrat font-bold text-spark-dark mb-6 px-4">
-              Nuestros <span className="text-spark-coral">Proyectos</span>
-            </h1>
-            <p className="text-lg sm:text-xl font-inter text-spark-blue max-w-3xl mx-auto px-4">
-              Explora todos nuestros proyectos actuales y únete a equipos apasionados por crear soluciones innovadoras
-            </p>
-            <div className="w-24 h-1 bg-spark-yellow mx-auto mt-6"></div>
+          <div className="mb-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+            <div className="text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-montserrat font-bold text-spark-dark mb-6 px-4">
+                Nuestros <span className="text-spark-coral">Proyectos</span>
+              </h1>
+              <p className="text-lg sm:text-xl font-inter text-spark-blue max-w-3xl mx-auto px-4">
+                Explora todos nuestros proyectos actuales y únete a equipos apasionados por crear soluciones innovadoras
+              </p>
+              <div className="w-24 h-1 bg-spark-yellow mx-auto mt-6"></div>
+            </div>
+            
+            {/*  Seccion lateral con propuesta de proyecto */}
+            <div className="w-full lg:w-auto relative overflow-hidden">
+              <div className="bg-spark-coral text-white rounded-2xl p-6 sm:p-7 shadow-lg flex flex-col gap-4 lg:max-w-sm">
+                <h3 className="text-lg sm:text-xl font-montserrat font-bold leading-tight">
+                  ¿No encuentras lo que buscas?
+                </h3>
+                <p className="text-sm sm:text-base font-inter opacity-90">
+                  Propón tu propia idea y te ayudaremos a definirla un proyecto y publicarlo
+                </p>
+                <button
+                  onClick={() => window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=C7UJMpu33EOfxI1CxAbdYXviU2CVXtNKpQgpf6kSlDJUREhMR1EyRk5GS0Q0U0NXV0tCUThMOUYzOC4u', '_blank', 'noopener,noreferrer')}
+                  className="flex-1 bg-white text-spark-blue font-semibold px-5 py-2.5 rounded-full hover:bg-spark-yellow hover:text-spark-dark transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-2"
+                >
+                  Proponer Proyecto
+                  <ExternalLink size={18} />
+                </button>
+              </div>
+            </div>
 
             {/* Debug toggle */}
             {ENABLE_DEBUG_TOOL && (
-
               <div className="mt-8 flex flex-col items-center gap-4">
                 <div className="flex gap-4">
                   <button
@@ -355,22 +375,6 @@ const ProjectsPage: React.FC = () => {
               </div>
             </AnimatePresence>
           )}
-
-          <div className="text-center mt-16">
-            <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto shadow-lg">
-              <h3 className="text-xl sm:text-2xl font-montserrat font-bold text-spark-dark mb-4">
-                ¿No encuentras lo que buscas?
-              </h3>
-              <p className="text-sm sm:text-base font-inter text-spark-blue mb-6">
-                ¡Propón tu propia idea de proyecto! Estamos siempre abiertos a nuevas iniciativas
-              </p>
-              <button
-                onClick={() => window.location.href = "https://forms.office.com/Pages/ResponsePage.aspx?id=C7UJMpu33EOfxI1CxAbdYXviU2CVXtNKpQgpf6kSlDJUREhMR1EyRk5GS0Q0U0NXV0tCUThMOUYzOC4u"}
-                className="bg-spark-yellow hover:bg-spark-coral text-spark-dark font-inter font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base">
-                Proponer un Proyecto
-              </button>
-            </div>
-          </div>
         </div>
       </section>
 
