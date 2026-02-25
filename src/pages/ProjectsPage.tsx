@@ -218,7 +218,7 @@ const ProjectsPage: React.FC = () => {
                             ? 'bg-spark-blue text-white border-spark-blue shadow-md'
                             : 'bg-white text-spark-blue border-spark-blue/30 hover:bg-spark-blue/10'}
                             `}
-                            >
+                      >
                         {tech}
                       </motion.button>
                     );
@@ -235,124 +235,124 @@ const ProjectsPage: React.FC = () => {
             </div>
           ) : (
             <AnimatePresence mode='popLayout'>
-            <div className="flex flex-col gap-8 px-4">
-              {filteredProjects.map((project, index) => {
-                const isEven = index % 2 === 1;
-                const hasImages = project.imagenes && project.imagenes.length > 0;
-                const imageUrl = hasImages ? project.imagenes![0] : null;
-                
-                return (
-                  <motion.div
-                  key={`${project.nombre}-${index}`}
-                  
-                  layout
+              <div className="flex flex-col gap-8 px-4">
+                {filteredProjects.map((project, index) => {
+                  const isEven = index % 2 === 1;
+                  const hasImages = project.imagenes && project.imagenes.length > 0;
+                  const imageUrl = hasImages ? project.imagenes![0] : null;
 
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 40 }}
+                  return (
+                    <motion.div
+                      key={`${project.nombre}-${index}`}
 
-                  transition={{ duration: 0.5, delay: index *0.03 }}
-                  
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden group transition-all duration-300 hover:ring-2 hover:ring-spark-coral/70 hover:ring-offset-white sm:hover:-translate-y-2 flex flex-col md:flex-row h-[250px]"
-                  >
-                    {/* IMAGE (desktop only) */}
-                    <div
-                      className={`
+                      layout
+
+                      initial={{ opacity: 0, y: 40 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 40 }}
+
+                      transition={{ duration: 0.5, delay: index * 0.03 }}
+
+                      className="bg-white rounded-2xl shadow-lg overflow-hidden group transition-all duration-300 hover:ring-2 hover:ring-spark-coral/70 hover:ring-offset-white sm:hover:-translate-y-2 flex flex-col md:flex-row h-[250px]"
+                    >
+                      {/* IMAGE (desktop only) */}
+                      <div
+                        className={`
                         hidden md:block md:w-1/3 h-full overflow-hidden
                         ${isEven ? 'md:order-2' : 'md:order-1'}
                       `}
-                    >
-                      {imageUrl ? (
-                        <div className="w-full h-full overflow-hidden flex items-center justify-center">
-                        <img
-                          src={imageUrl}
-                          alt={project.nombre}
-                          className="h-full w-auto object-cover"
-                        />
+                      >
+                        {imageUrl ? (
+                          <div className="w-full h-full overflow-hidden flex items-center justify-center">
+                            <img
+                              src={imageUrl}
+                              alt={project.nombre}
+                              className="h-full w-auto object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-sky-400 via-blue-500 to-cyan-400" />
+                        )}
                       </div>
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-sky-400 via-blue-500 to-cyan-400" />
-                      )}
-                    </div>
 
-                    {/* CONTENT */}
-                    <div
-                      className={`
+                      {/* CONTENT */}
+                      <div
+                        className={`
                         flex flex-col justify-between p-5 sm:p-6 flex-1
                         ${isEven ? 'md:order-1' : 'md:order-2'}
                         `}
-                        >
-                      <div className="flex flex-col h-full">
+                      >
+                        <div className="flex flex-col h-full">
 
-                        {/* TOP */}
-                        <div>
-                          {/* Title + Emoji */}
-                          <div className="flex items-center gap-3 mb-3">
-                            <EmojiRender text={project.emoji} size={28} />
-                            <h3 className="text-lg sm:text-xl font-montserrat font-bold text-spark-dark leading-tight">
-                              {getProjectTitle(project)}
-                            </h3>
+                          {/* TOP */}
+                          <div>
+                            {/* Title + Emoji */}
+                            <div className="flex items-center gap-3 mb-3">
+                              <EmojiRender text={project.emoji} size={28} />
+                              <h3 className="text-lg sm:text-xl font-montserrat font-bold text-spark-dark leading-tight">
+                                {getProjectTitle(project)}
+                              </h3>
+                            </div>
+
+                            {/* Clickbait */}
+                            <p className="text-sm sm:text-base font-inter text-spark-blue leading-relaxed">
+                              {getProjectDescription(project)}
+                            </p>
                           </div>
 
-                          {/* Clickbait */}
-                          <p className="text-sm sm:text-base font-inter text-spark-blue leading-relaxed">
-                            {getProjectDescription(project)}
-                          </p>
-                        </div>
+                          {/* SPACER */}
+                          <div className="flex-grow" />
 
-                        {/* SPACER */}
-                        <div className="flex-grow" />
-
-                        {/* TECHNOLOGIES */}
-                        <div className="flex items-start gap-3 mb-3">
-                          <Code className="text-spark-coral mt-1" size={16} />
-                          <div className="flex flex-wrap gap-2">
-                            {getProjectTechnologies(project).map((tech, index) =>
-                              index === 0 ? (
-                                <span
-                                key={index}
-                                className="inline-flex items-center justify-center px-3 py-1 text-sm font-bold rounded-lg bg-purple-200 outline outline-2 outline-purple-500"
-                                >
-                                  {tech}
-                                </span>
-                              ) : (
-                                <span
-                                key={index}
-                                className="bg-spark-yellow/20 text-spark-dark px-2 py-1 rounded text-xs sm:text-sm font-inter font-medium"
-                                >
-                                  {tech}
-                                </span>
-                              )
-                            )}
+                          {/* TECHNOLOGIES */}
+                          <div className="flex items-start gap-3 mb-3">
+                            <Code className="text-spark-coral mt-1" size={16} />
+                            <div className="flex flex-wrap gap-2">
+                              {getProjectTechnologies(project).map((tech, index) =>
+                                index === 0 ? (
+                                  <span
+                                    key={index}
+                                    className="inline-flex items-center justify-center px-3 py-1 text-sm font-bold rounded-lg bg-purple-200 outline outline-2 outline-purple-500"
+                                  >
+                                    {tech}
+                                  </span>
+                                ) : (
+                                  <span
+                                    key={index}
+                                    className="bg-spark-yellow/20 text-spark-dark px-2 py-1 rounded text-xs sm:text-sm font-inter font-medium"
+                                  >
+                                    {tech}
+                                  </span>
+                                )
+                              )}
+                            </div>
                           </div>
-                        </div>
 
-                        {/* BUTTONS */}
-                        <div className="flex flex-col sm:flex-row gap-3 mt-4">
-                          <a
-                            href={getProjectLink(project)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1 bg-spark-blue hover:bg-spark-yellow text-white hover:text-spark-dark font-inter font-semibold py-2 sm:py-3 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
-                          >
-                            Inscribirse
-                            <ExternalLink size={16} />
-                          </a>
+                          {/* BUTTONS */}
+                          <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                            <a
+                              href={getProjectLink(project)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex-1 bg-spark-blue hover:bg-spark-yellow text-white hover:text-spark-dark font-inter font-semibold py-2 sm:py-3 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
+                            >
+                              Inscribirse
+                              <ExternalLink size={16} />
+                            </a>
 
-                          <button
-                            onClick={() => handleProjectClick(project)}
-                            className="flex-1 bg-spark-gray hover:bg-spark-coral/20 text-spark-blue hover:text-spark-dark font-inter font-medium py-2 sm:py-3 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base border border-spark-blue/20 hover:border-spark-coral"
-                          >
-                            Ver detalles
-                            <Eye size={16} />
-                          </button>
+                            <button
+                              onClick={() => handleProjectClick(project)}
+                              className="flex-1 bg-spark-gray hover:bg-spark-coral/20 text-spark-blue hover:text-spark-dark font-inter font-medium py-2 sm:py-3 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base border border-spark-blue/20 hover:border-spark-coral"
+                            >
+                              Ver detalles
+                              <Eye size={16} />
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </AnimatePresence>
           )}
 
