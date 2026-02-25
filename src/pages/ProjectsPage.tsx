@@ -6,6 +6,7 @@ import { projectService } from '../services/projectService';
 import { Project } from '../types/Project';
 import ProjectDetailModal from '../components/ProjectDetailModal';
 import EmojiRender from '../components/EmojiRender';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ENABLE_DEBUG_TOOL = false;
 
@@ -17,6 +18,33 @@ const ProjectsPage: React.FC = () => {
   const [cacheInfo, setCacheInfo] = useState<any>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
+  const techCountMap: Record<string, number> = {};
+
+  const filteredProjects = selectedTechs.length === 0
+    ? projects
+    : projects.filter(project =>
+      selectedTechs.every(tech =>
+        (project.tecnologias || []).includes(tech)
+      )
+    );
+
+  filteredProjects.forEach(project => {
+    (project.tecnologias || []).forEach(tech => {
+      techCountMap[tech] = (techCountMap[tech] || 0) + 1;
+    });
+  });
+
+  // convertir a array ordenado por frecuencia
+  let availableTechs = Object.entries(techCountMap)
+    .sort((a, b) => b[1] - a[1])
+    .map(([tech]) => tech);
+
+  // mover seleccionados al inicio
+  availableTechs = [
+    ...selectedTechs,
+    ...availableTechs.filter(t => !selectedTechs.includes(t))
+  ];
 
   useEffect(() => {
     let unsubscribe: (() => void) | null = null;
@@ -82,6 +110,14 @@ const ProjectsPage: React.FC = () => {
   const getProjectDescription = (project: Project) => project.tituloClickbait || '';
   const getProjectTechnologies = (project: Project) => project.tecnologias || [];
   const getProjectLink = (project: Project) => project.enlaceInscripcion || '#';
+
+  const handleTechClick = (tech: string) => {
+    setSelectedTechs(prev =>
+      prev.includes(tech)
+        ? prev.filter(t => t !== tech)
+        : [...prev, tech]
+    );
+  };
 
   return (
     <div className="min-h-screen bg-spark-gray">
@@ -157,6 +193,40 @@ const ProjectsPage: React.FC = () => {
               </div>
             )}
           </div>
+          {availableTechs.length > 0 && (
+            <div className="mb-10">
+
+              {/* Contenedor scroll mobile */}
+              <div className="flex gap-3 overflow-x-auto md:flex-wrap md:overflow-visible pb-2">
+
+                <AnimatePresence>
+                  {availableTechs.map((tech) => {
+                    const isSelected = selectedTechs.includes(tech);
+
+                    return (
+                      <motion.button
+                        key={tech}
+                        onClick={() => handleTechClick(tech)}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        transition={{ duration: 0.5 }}
+                        layout
+                        className={`
+                          whitespace-nowrap px-4 py-2 rounded-full text-sm font-inter font-medium transition-colors duration-300 border
+                          ${isSelected
+                            ? 'bg-spark-blue text-white border-spark-blue shadow-md'
+                            : 'bg-white text-spark-blue border-spark-blue/30 hover:bg-spark-blue/10'}
+                            `}
+                            >
+                        {tech}
+                      </motion.button>
+                    );
+                  })}
+                </AnimatePresence>
+              </div>
+            </div>
+          )}
 
           {loading ? (
             <div className="text-center py-20">
@@ -164,32 +234,42 @@ const ProjectsPage: React.FC = () => {
               <p className="mt-4 text-spark-blue font-inter">Cargando proyectos...</p>
             </div>
           ) : (
+            <AnimatePresence mode='popLayout'>
             <div className="flex flex-col gap-8 px-4">
-              {projects.map((project, index) => {
+              {filteredProjects.map((project, index) => {
                 const isEven = index % 2 === 1;
                 const hasImages = project.imagenes && project.imagenes.length > 0;
                 const imageUrl = hasImages ? project.imagenes![0] : null;
-
+                
                 return (
-                  <div
-                    key={project.nombre}
-                    className="bg-white rounded-2xl shadow-lg overflow-hidden group transition-all duration-300
-                    hover:border hover:border-spark-coral
-                    sm:hover:-translate-y-2 flex flex-col md:flex-row h-[280px]"
+                  <motion.div
+                  key={`${project.nombre}-${index}`}
+                  
+                  layout
+
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 40 }}
+
+                  transition={{ duration: 0.5, delay: index *0.03 }}
+                  
+                  className="bg-white rounded-2xl shadow-lg overflow-hidden group transition-all duration-300 hover:ring-2 hover:ring-spark-coral/70 hover:ring-offset-white sm:hover:-translate-y-2 flex flex-col md:flex-row h-[250px]"
                   >
                     {/* IMAGE (desktop only) */}
                     <div
                       className={`
-                        hidden md:block md:w-1/3 h-full
+                        hidden md:block md:w-1/3 h-full overflow-hidden
                         ${isEven ? 'md:order-2' : 'md:order-1'}
                       `}
                     >
                       {imageUrl ? (
+                        <div className="w-full h-full overflow-hidden flex items-center justify-center">
                         <img
                           src={imageUrl}
                           alt={project.nombre}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="h-full w-auto object-cover"
                         />
+                      </div>
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-sky-400 via-blue-500 to-cyan-400" />
                       )}
@@ -200,8 +280,8 @@ const ProjectsPage: React.FC = () => {
                       className={`
                         flex flex-col justify-between p-5 sm:p-6 flex-1
                         ${isEven ? 'md:order-1' : 'md:order-2'}
-                      `}
-                    >
+                        `}
+                        >
                       <div className="flex flex-col h-full">
 
                         {/* TOP */}
@@ -230,15 +310,15 @@ const ProjectsPage: React.FC = () => {
                             {getProjectTechnologies(project).map((tech, index) =>
                               index === 0 ? (
                                 <span
-                                  key={index}
-                                  className="inline-flex items-center justify-center px-3 py-1 text-sm font-bold rounded-lg bg-purple-200 outline outline-2 outline-purple-500"
+                                key={index}
+                                className="inline-flex items-center justify-center px-3 py-1 text-sm font-bold rounded-lg bg-purple-200 outline outline-2 outline-purple-500"
                                 >
                                   {tech}
                                 </span>
                               ) : (
                                 <span
-                                  key={index}
-                                  className="bg-spark-yellow/20 text-spark-dark px-2 py-1 rounded text-xs sm:text-sm font-inter font-medium"
+                                key={index}
+                                className="bg-spark-yellow/20 text-spark-dark px-2 py-1 rounded text-xs sm:text-sm font-inter font-medium"
                                 >
                                   {tech}
                                 </span>
@@ -269,10 +349,11 @@ const ProjectsPage: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
+            </AnimatePresence>
           )}
 
           <div className="text-center mt-16">
