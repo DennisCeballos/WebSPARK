@@ -57,14 +57,14 @@ const AboutPage: React.FC = () => {
           <div className="text-wrap mb-16">
             <div className="max-w-4xl mx-auto px-4">
               <p className="text-lg sm:text-xl font-inter text-spark-blue leading-relaxed mb-8">
-                Somos un grupo de estudiantes comprometidos con <strong className="text-spark-dark">fomentar la confianza y la iniciativa en el desarrollo de proyectos y actividades grupales</strong>.
-                Creemos en la importancia de aprender haciendo, pero sabemos que dar los primeros
-                pasos puede ser desafiante. Por ello, queremos brindarte el apoyo necesario para que <span className="text-spark-coral font-semibold">inicies tu camino sin miedo a equivocarte</span>.
+                Somos un grupo de estudiantes comprometidos con <strong className="text-spark-dark">fomentar la confianza y la iniciativa a través del desarrollo de proyectos colaborativos</strong>.
+                Creemos en la importancia de <strong className="text-spark-dark">aprender haciendo</strong>, pero sabemos que dar los primeros pasos puede ser desafiante.
+                Por ello, queremos brindar el apoyo necesario para que cualquiera <span className="text-spark-coral font-semibold">inicie su camino sin miedo a equivocarse</span>.
               </p>
 
               <p className="text-base sm:text-lg font-inter text-spark-blue leading-relaxed mb-12">
-                Nuestro objetivo es <strong className="text-spark-dark">crear un ambiente colaborativo y seguro</strong> en
-                el que puedas comenzar a construir tu portafolio, conectar con otros apasionados por la programación y experimentar el <span className="text-spark-coral font-semibold">trabajo en equipo</span> sin presiones.
+                Buscamos <strong className="text-spark-dark">crear un ambiente colaborativo y seguro</strong> en el que cualquier estudiante pueda comenzar a construir
+                su portafolio, conectar con otros apasionados por la tecnología y experimentar el <span className="text-spark-coral font-semibold">trabajo en equipo</span> sin presiones.
               </p>
             </div>
           </div>
@@ -79,8 +79,8 @@ const AboutPage: React.FC = () => {
                   <h2 className="text-xl sm:text-2xl font-montserrat font-bold text-spark-dark">Nuestra Misión</h2>
                 </div>
                 <p className="text-base sm:text-lg font-inter text-spark-blue leading-relaxed">
-                  Fomentar la creatividad y el desarrollo de proyectos innovadores, donde cada integrante se sienta libre de explorar
-                  su potencial y superar sus miedos
+                  Diseñar y gestionar proyectos tecnológicos colaborativos, creativos y de alcance específico que desafíen a los estudiantes a
+                  aprender nuevas tecnologías, desarrollar habilidades técnicas y fortalecer sus habilidades blandas a través de la experimentación práctica.
                 </p>
               </div>
             </div>
