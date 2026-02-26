@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, MessageSquare, Instagram, Linkedin, MapPin } from 'lucide-react';
+import { FaWhatsapp, FaLinkedin } from 'react-icons/fa';
 
 interface ContactItem {
   id: string;
@@ -15,7 +15,7 @@ const ContactSection: React.FC = () => {
   const contactInfo: ContactItem[] = [
     {
       id: 'whatsapp',
-      icon: MessageSquare,
+      icon: FaWhatsapp,
       label: 'WhatsApp',
       value: 'Comunidad de WhatsApp',
       link: 'https://chat.whatsapp.com/H5p9xM7Due7BQ73cpXg9Om',
@@ -23,7 +23,7 @@ const ContactSection: React.FC = () => {
     },
     {
       id: 'linkedin',
-      icon: Linkedin,
+      icon: FaLinkedin,
       label: 'LinkedIn',
       value: 'Iniciativa SPARK',
       link: 'https://www.linkedin.com/company/iniciativa-spark',
@@ -76,7 +76,7 @@ const ContactSection: React.FC = () => {
               >
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 sm:w-14 sm:h-14 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300`}>
-                    <Icon className={`${contact.color} group-hover:scale-110 transition-transform duration-300`} size={20} />
+                    <Icon className={`${contact.color} group-hover:scale-110 transition-transform duration-300`} size={36} />
                   </div>
                   <div>
                     <h3 className="font-montserrat font-semibold text-base sm:text-lg mb-1">
@@ -106,17 +106,6 @@ const ContactSection: React.FC = () => {
           </p>
         </div>
         */}
-
-        {/* Redireccion a la web de Notion Antigua */}
-        <div className="text-center mt-8 sm:mt-12 px-4">
-          <div className="inline-flex flex-col sm:flex-row gap-4">
-            <a
-              href='https://foggy-princess-ad0.notion.site/Iniciativa-SPARK-1b74bba3c2e180a39df0caa8e9df4f71?source=copy_link'
-              className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-spark-blue font-inter font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 text-sm sm:text-base">
-              Web Antigua
-            </a>
-          </div>
-        </div>
       </div>
     </section>
   );

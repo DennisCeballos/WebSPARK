@@ -1,6 +1,7 @@
 import React from 'react';
-import { ArrowLeft, Target, Eye, Users, Code, Briefcase, MessageSquare, Gem } from 'lucide-react';
+import { ArrowLeft, Target, Eye, Users, Code, Briefcase, Gem } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { FaWhatsapp } from 'react-icons/fa';
 
 const AboutPage: React.FC = () => {
   const navigate = useNavigate();
@@ -106,7 +107,7 @@ const AboutPage: React.FC = () => {
             <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-spark-dark text-center mb-8 sm:mb-12 px-4">
               Nuestros <span className="text-spark-coral">Objetivos</span>
             </h2>
-            <div className="flex flex-wrap justify-center gap-6 sm:gap-8 px-4">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 px-2">
               {objectives.map((objective, index) => {
                 const Icon = objective.icon;
                 return (
@@ -126,12 +127,12 @@ const AboutPage: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="text-center pt-24">
+        <div className="text-center pt-12">
           <button
             onClick={() => window.location.href = "https://chat.whatsapp.com/H5p9xM7Due7BQ73cpXg9Om"}
             className="bg-green-500 hover:bg-green-700 text-white font-inter font-semibold px-8 sm:px-10 py-4 sm:py-5 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-3 mx-auto text-base sm:text-lg"
           >
-            <MessageSquare size={24} />
+            <FaWhatsapp className={`group-hover:scale-110 transition-transform duration-300`} size={36} />
             Únete a nuestra comunidad
           </button>
         </div>
