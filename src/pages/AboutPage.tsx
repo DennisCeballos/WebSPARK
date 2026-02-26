@@ -9,23 +9,23 @@ const AboutPage: React.FC = () => {
   const objectives = [
     {
       icon: Code,
-      title: "Fomentamos el aprendizaje",
-      description: "Motivamos a los estudiantes a perder el miedo a explorar nuevas herramientas y tecnologías"
+      title: "Aprende sin miedo",
+      description: "Explora herramientas y tecnologías que nunca has usado antes, con el respaldo de un equipo que te acompaña en el proceso."
     },
     {
       icon: Users,
-      title: "Conexión con personas",
-      description: "Creamos espacios de estudio donde estudiantes con intereses similares se conecten y trabajen juntos"
+      title: "Conecta con personas con tus mismos ideales",
+      description: "Trabaja con estudiantes que comparten tus intereses y construye relaciones reales mientras desarrollan proyectos juntos."
     },
     {
       icon: Gem,
-      title: "Impulsa tus ideas",
-      description: "Si tienes una idea o concepto pero no sabes cómo iniciarla, te brindamos orientación y las herramientas necesarias para dar los primeros pasos."
+      title: "Convertimos tus ideas en proyectos reales",
+      description: "Si tienes una idea y no sabes por dónde empezar, aquí encuentras orientación y estructura para dar el primer paso."
     },
     {
       icon: Briefcase,
-      title: "Fomentar el portafolio personal",
-      description: "Incentivamos la creación de proyectos que sumen experiencia real y evidencien habilidades"
+      title: "Construye un portafolio que demuestre lo que sabes",
+      description: "Desarrolla proyectos concretos que evidencien tus habilidades y te permitan mostrar experiencia real en el futuro."
     },
 
   ];
@@ -105,7 +105,7 @@ const AboutPage: React.FC = () => {
           {/* Objetivos */}
           <div>
             <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-spark-dark text-center mb-8 sm:mb-12 px-4">
-              Nuestros <span className="text-spark-coral">Objetivos</span>
+              <span className="text-spark-coral">¿Qué ganas</span> al unirte a SPARK?
             </h2>
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6 px-2">
               {objectives.map((objective, index) => {
