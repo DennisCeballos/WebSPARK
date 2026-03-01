@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { X, ExternalLink, Code, Target, Lightbulb, BookOpen } from 'lucide-react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Code, Target, Lightbulb, BookOpen, ArrowLeft } from 'lucide-react';
 import { Project } from '../types/Project';
 import ReactMarkdown from "react-markdown";
 import EmojiRender from './EmojiRender';
@@ -10,22 +10,19 @@ interface ProjectDetailModalProps {
   onClose: () => void;
 }
 
-interface ProjectDetailModalProps {
-  project: Project | null;
-  isOpen: boolean;
-  onClose: () => void;
-}
-
 const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen, onClose }) => {
   const [isAnimating, setIsAnimating] = useState(false);
+
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
       setIsAnimating(true);
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden'; // bloquea fondo
     } else {
       document.body.style.overflow = 'unset';
     }
+
     return () => {
       document.body.style.overflow = 'unset';
     };
@@ -39,7 +36,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
+    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
       handleClose();
     }
   };
@@ -51,214 +48,167 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
   const getProjectTechnologies = (project: Project) => project.tecnologias || [];
   const getProjectLink = (project: Project) => project.enlaceInscripcion || '#';
 
+  const heroImage = project.imagenes?.[0];
+  const image2 = project.imagenes?.[1];
+  const image3 = project.imagenes?.[2];
+
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/50 backdrop-blur-sm transition-all duration-300 ${isAnimating ? 'opacity-100' : 'opacity-0'
-        }`}
+      className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-300 overflow-y-auto ${isAnimating ? 'opacity-100' : 'opacity-0'}`}
       onClick={handleBackdropClick}
     >
-      <div
-        className={`relative w-full max-w-6xl h-[95dvh] sm:h-[80dvh] bg-white shadow-2xl transition-all duration-300 transform rounded-lg sm:rounded-2xl ${isAnimating ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
-          }`}
-      >
-        {/* Emoji - hidden on mobile, shown on desktop */}
-        <div className="absolute -left-[50px] -bottom-[50px] z-50 drop-shadow-2xl hidden lg:block">
-          <EmojiRender text={project.emoji} size={100} />
-        </div>
-
-        <div className="relative w-full h-full bg-white rounded-lg sm:rounded-2xl shadow-2xl overflow-hidden">
-          {/* Close button */}
+      <div className="min-h-full flex justify-center items-start py-10">
+        <div
+          ref={modalRef}
+          className={`relative w-full max-w-6xl bg-white rounded-2xl shadow-2xl transform transition-all duration-300 ${isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
+        >
+          {/* Botón volver */}
           <button
             onClick={handleClose}
-            className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 w-8 h-8 sm:w-10 sm:h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110"
+            className="fixed top-4 left-4 z-50 flex items-center gap-2 bg-white/90 hover:bg-white px-4 py-2 rounded-full shadow-md transition"
           >
-            <X size={16} className="sm:w-5 sm:h-5 text-gray-800" />
+            <ArrowLeft size={18} />
+            <span className="text-sm font-medium">Volver</span>
           </button>
 
-          {/* Mobile: Single column layout, Desktop: Two column layout */}
-          <div className="flex flex-col lg:flex-row h-full">
-            {/* Left side - Images (hidden on mobile, shown on desktop) */}
-            <div className="hidden lg:block lg:w-2/5 bg-gray-100 relative overflow-hidden">
-              {project.imagenes && project.imagenes.length > 0 ? (
-                <div className="h-full">
+          {/* HERO */}
+          <div className="w-full h-[300px] sm:h-[400px] relative">
+            {heroImage ? (
+              <img
+                src={heroImage}
+                alt={getProjectTitle(project)}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-sky-400 via-blue-500 to-cyan-400" />
+            )}
+          </div>
+
+          {/* EMOJI SUPERPUESTO */}
+          <div className="relative flex justify-center">
+            <div className="-mt-16 z-20 bg-white rounded-full p-4 shadow-xl">
+              <EmojiRender text={project.emoji} size={64} />
+            </div>
+          </div>
+
+          {/* HEADER */}
+          <div className="text-center px-6 mt-6 max-w-4xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-3">
+              {getProjectTitle(project)}
+            </h1>
+            <p className="text-lg text-spark-coral opacity-80">
+              {getProjectDescription(project)}
+            </p>
+          </div>
+
+          {/* CONTENIDO */}
+          <div className="mt-12 space-y-12 px-8 md:px-12 pb-12 max-w-5xl mx-auto">
+
+            {/* DESCRIPCIÓN */}
+            <div className="pt-8 border-t border-gray-200 relative overflow-visible">
+              {/* IMAGEN */}
+              {image2 && (
+                <div className="hidden md:block absolute right-[-20%] top-1/2 -translate-y-1/2 w-[45%] h-[70%]">
                   <img
-                    src={project.imagenes[0]}
-                    alt={getProjectTitle(project)}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                    }}
+                    src={image2}
+                    alt="descripcion"
+                    className="w-full h-full object-cover rounded-xl shadow-lg"
                   />
-                  {project.imagenes.length > 1 && (
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <div className="flex gap-2 overflow-x-auto">
-                        {project.imagenes.slice(1, 4).map((img, index) => (
-                          <img
-                            key={index}
-                            src={img}
-                            alt={`${getProjectTitle(project)} ${index + 2}`}
-                            className="w-16 h-16 rounded-lg object-cover flex-shrink-0 border-2 border-white shadow-md"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none';
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="h-full flex items-center justify-center bg-gradient-to-br from-yellow-200/20 to-orange-200/20">
-                  <div className="text-center">
-                    <Code size={64} className="text-blue-400/40 mx-auto mb-4" />
-                    <p className="text-spark-blue/60 font-sans">No hay imágenes disponibles</p>
-                  </div>
                 </div>
               )}
+
+              {/* TEXTO */}
+              <div className={image2 ? "md:mr-[35%]" : ""}>
+                <h3 className="text-xl font-semibold mb-4">Descripción del Proyecto</h3>
+                <div className="text-spark-blue leading-relaxed text-justify">
+                  <ReactMarkdown>{project.descripcion || ''}</ReactMarkdown>
+                </div>
+              </div>
             </div>
 
-            {/* Right side - Content (full width on mobile, 3/5 width on desktop) */}
-            <div className="flex flex-col flex-1 lg:w-3/5 overflow-y-auto break-words">
-              {/* Header */}
-              <div className="p-3 sm:p-4 lg:p-6 border-b border-gray-200 bg-white">
-                <div className="flex items-start gap-2 mb-2 lg:mb-0 lg:hidden">
-                  <EmojiRender text={project.emoji} size={24} />
-                  <div className="flex-1 min-w-0">
-                    <h1 className="text-lg sm:text-xl font-bold text-gray-800 mb-1 leading-tight">
-                      {getProjectTitle(project)}
-                    </h1>
-                    <p className="text-sm sm:text-base text-spark-coral mb-2 leading-tight">
-                      {getProjectDescription(project)}
-                    </p>
-                  </div>
-                </div>
+            {/* MOTIVACIÓN + OBJETIVOS (SEPARADOS + IMAGEN COMPARTIDA) */}
+            <div className="relative pt-8 border-t border-gray-200 overflow-visible">
 
-                <div className="hidden lg:block">
-                  <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">
-                    {getProjectTitle(project)}
-                  </h1>
-                  <p className="text-lg text-spark-coral mb-4">
-                    {getProjectDescription(project)}
-                  </p>
+              {/* IMAGEN CENTRAL */}
+              {image3 && (
+                <div className="hidden md:block absolute left-[-20%] top-1/2 -translate-y-1/2 w-[45%] h-[70%]">
+                  <img
+                    src={image3}
+                    alt="motivacion"
+                    className="w-full h-full object-cover rounded-xl shadow-lg"
+                  />
                 </div>
+              )}
 
-                {/* Quick stats - Compact on mobile */}
-                <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm">
-                  {project.origen && (
-                    <div className="flex items-center gap-1">
-                      <Target className="text-spark-coral flex-shrink-0" size={12} />
-                      <span className="text-spark-blue truncate">Origen: {project.origen}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
+              <div className="space-y-12">
 
-              {/* Scrollable content */}
-              <div className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 space-y-4 sm:space-y-5 lg:space-y-6">
-                {/* Technologies */}
-                <div>
-                  <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2">
-                    <Code className="text-yellow-500" size={16} />
-                    Tecnologías
+                {/* MOTIVACIÓN */}
+                <div className={image3 ? "md:ml-[35%]" : ""}>
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Lightbulb size={18} /> Motivación
                   </h3>
-                  <div className="flex flex-wrap gap-1 sm:gap-2">
-                    {getProjectTechnologies(project).map((tech, index) => (
-                      <span
-                        key={index}
-                        className="bg-yellow-100 text-gray-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                  <div className="text-spark-blue text-justify">
+                    <ReactMarkdown>{project.motivacion || ''}</ReactMarkdown>
                   </div>
                 </div>
 
-                {/* Description */}
-                {project.descripcion && (
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 sm:mb-3">
-                      Descripción del Proyecto
-                    </h3>
-                    <div className="text-spark-blue text-sm sm:text-base leading-relaxed">
-                      <ReactMarkdown>{project.descripcion}</ReactMarkdown>
-                    </div>
-                  </div>
-                )}
-
-                {/* Motivation */}
-                {project.motivacion && (
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2">
-                      <Lightbulb className="text-spark-coral" size={16} />
-                      Motivación
-                    </h3>
-                    <div className="text-spark-blue text-sm sm:text-base leading-relaxed">
-                      <ReactMarkdown>{project.motivacion}</ReactMarkdown>
-                    </div>
-                  </div>
-                )}
-
-                {/* Objectives */}
-                {project.objetivos && project.objetivos.length > 0 && (
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2">
-                      <Target className="text-spark-blue" size={16} />
-                      Objetivos
-                    </h3>
-                    <ul className="space-y-2">
-                      {project.objetivos.map((objetivo, index) => (
-                        <li key={index} className="flex items-start gap-2 sm:gap-3">
-                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
-                          <div className="text-spark-blue text-sm sm:text-base">
-                            <ReactMarkdown>{objetivo}</ReactMarkdown>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Learning concepts */}
-                {project.conceptosAprender && project.conceptosAprender.length > 0 && (
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2">
-                      <BookOpen className="text-yellow-500" size={16} />
-                      Conceptos a Aprender
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {project.conceptosAprender.map((concepto, index) => (
-                        <div key={index} className="bg-blue-50 rounded-lg p-2 sm:p-3">
-                          <span className="text-gray-800 text-sm sm:text-base font-medium">{concepto}</span>
+                {/* OBJETIVOS */}
+                <div className={`pt-8 border-t border-gray-200 ${image3 ? "md:ml-[35%]" : ""}`}>
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Target size={18} /> Objetivos
+                  </h3>
+                  <ul className="space-y-2">
+                    {(project.objetivos || []).map((obj, i) => (
+                      <li key={i} className="flex gap-2">
+                        <div className="w-2 h-2 bg-orange-500 rounded-full mt-2" />
+                        <div className="text-spark-blue text-justify">
+                          <ReactMarkdown>{obj}</ReactMarkdown>
                         </div>
-                      ))}
-                    </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* TECNOLOGÍAS */}
+            <div className="pt-8 border-t border-gray-200">
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <Code size={18} /> Tecnologías
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {getProjectTechnologies(project).map((tech, i) => (
+                  <span key={i} className="bg-yellow-100 px-3 py-1 rounded-full text-sm">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* CONCEPTOS */}
+            <div className="pt-8 border-t border-gray-200">
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <BookOpen size={18} /> Conceptos a Aprender
+              </h3>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {(project.conceptosAprender || []).map((c, i) => (
+                  <div key={i} className="bg-blue-50 p-3 rounded-lg">
+                    {c}
                   </div>
-                )}
-
-                {/*
-                  Last update
-                  {project.ultimaActualizacion && (
-                    <div className="text-xs sm:text-sm text-blue-400 pt-2">
-                      Última actualización: {new Date(project.ultimaActualizacion).toLocaleDateString('es-ES')}
-                    </div>
-                  )}
-                */}
+                ))}
               </div>
+            </div>
 
-              {/* Footer with action button */}
-              <div className="p-4 sm:p-6 border-t border-spark-gray bg-spark-gray/30">
-                <a
-                  href={getProjectLink(project)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full bg-spark-blue hover:bg-spark-yellow text-white hover:text-spark-dark font-inter font-semibold py-3 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 shadow-md sm:shadow-lg hover:scale-105 text-sm sm:text-base"
-                >
-                  Inscribirse al Proyecto
-                  <ExternalLink size={18} className="sm:w-5 sm:h-5" />
-                </a>
-              </div>
+            {/* CTA */}
+            <div className="pb-16">
+              <a
+                href={getProjectLink(project)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full md:w-auto md:px-10 block mx-auto text-center bg-spark-blue hover:bg-spark-yellow text-white hover:text-spark-dark font-semibold py-4 rounded-lg transition"
+              >
+                Inscribirse al Proyecto
+              </a>
             </div>
           </div>
         </div>
@@ -266,4 +216,5 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
     </div>
   );
 };
+
 export default ProjectDetailModal;
