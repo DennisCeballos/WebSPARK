@@ -7,20 +7,28 @@ interface EmojiProps {
 }
 
 const EmojiRender: React.FC<EmojiProps> = ({ text, size = 32 }) => {
-  // Convert text to Twemoji SVG
-  const svgHTML = twemoji.parse(text, {
-    folder: "svg",
-    ext: ".svg",
-    base: "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/",
-  });
-
   if (!text) return null;
   
+  // Separa los emojis correctamente respetando Unicode
+  const emojis = Array.from(text);
+  
   return (
-    <span
-      style={{ width: size, height: size, display: "inline-block" }}
-      dangerouslySetInnerHTML={{ __html: svgHTML }}
-    />
+    <span style={{ display: "inline-flex", gap: size * 0.15 }}>
+      {emojis.map((emoji, index) => {
+        const svgHTML = twemoji.parse(emoji, {
+          folder: "svg",
+          ext: ".svg",
+          base: "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/",
+        });
+        return (
+          <span
+            key={index}
+            style={{ width: size, height: size, display: "inline-block" }}
+            dangerouslySetInnerHTML={{ __html: svgHTML }}
+          />
+        );
+      })}
+    </span>
   );
 };
 

@@ -308,7 +308,9 @@ const ProjectsPage: React.FC = () => {
                           <div>
                             {/* Title + Emoji */}
                             <div className="flex items-center gap-3 mb-3">
-                              <EmojiRender text={project.emoji} size={28} />
+                              <span className="shrink-0">
+                                <EmojiRender text={project.emoji} size={28} />
+                              </span>
                               <h3 className="text-lg sm:text-xl font-montserrat font-bold text-spark-dark leading-tight">
                                 {getProjectTitle(project)}
                               </h3>

@@ -86,7 +86,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
 
           {/* EMOJI SUPERPUESTO */}
           <div className="relative flex justify-center">
-            <div className="-mt-16 z-20 bg-white rounded-full p-4 shadow-xl">
+            <div className="-mt-16 z-20 bg-white rounded-full px-5 py-4 shadow-xl inline-flex items-center gap-3">
               <EmojiRender text={project.emoji} size={64} />
             </div>
           </div>
