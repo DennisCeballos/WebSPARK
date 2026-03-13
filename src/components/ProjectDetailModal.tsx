@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Code, Target, Lightbulb, BookOpen, ArrowLeft } from 'lucide-react';
+import { Code, Target, Lightbulb, BookOpen, ArrowLeft, NotepadText } from 'lucide-react';
 import { Project } from '../types/Project';
 import ReactMarkdown from "react-markdown";
 import EmojiRender from './EmojiRender';
@@ -104,7 +104,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
           {/* CONTENIDO */}
           <div className="mt-12 space-y-12 px-8 md:px-12 pb-12 max-w-5xl mx-auto">
 
-            {/* DESCRIPCIÓN */}
+            {/* MOTIVACION */}
             <div className="pt-8 border-t border-gray-200 relative overflow-visible">
               {/* IMAGEN */}
               {image2 && (
@@ -119,14 +119,16 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
 
               {/* TEXTO */}
               <div className={image2 ? "md:mr-[35%]" : ""}>
-                <h3 className="text-xl font-semibold mb-4">Descripción del Proyecto</h3>
-                <div className="text-spark-blue leading-relaxed text-justify">
-                  <ReactMarkdown>{project.descripcion || ''}</ReactMarkdown>
+                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <Lightbulb size={18} /> Motivación
+                </h3>
+                <div className="text-spark-blue text-justify">
+                  <ReactMarkdown>{project.motivacion || ''}</ReactMarkdown>
                 </div>
               </div>
             </div>
 
-            {/* MOTIVACIÓN + OBJETIVOS (SEPARADOS + IMAGEN COMPARTIDA) */}
+            {/* DESCRIPCION + OBJETIVOS (SEPARADOS + IMAGEN COMPARTIDA) */}
             <div className="relative pt-8 border-t border-gray-200 overflow-visible">
 
               {/* IMAGEN CENTRAL */}
@@ -142,13 +144,13 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
 
               <div className="space-y-12">
 
-                {/* MOTIVACIÓN */}
+                {/* DESCRIPCION */}
                 <div className={image3 ? "md:ml-[35%]" : ""}>
                   <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                    <Lightbulb size={18} /> Motivación
+                    <NotepadText size={18} /> Descripción del Proyecto
                   </h3>
-                  <div className="text-spark-blue text-justify">
-                    <ReactMarkdown>{project.motivacion || ''}</ReactMarkdown>
+                  <div className="text-spark-blue leading-relaxed text-justify">
+                    <ReactMarkdown>{project.descripcion || ''}</ReactMarkdown>
                   </div>
                 </div>
 
