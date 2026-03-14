@@ -54,10 +54,10 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-300 overflow-y-auto ${isAnimating ? 'opacity-100' : 'opacity-0'}`}
+      className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-300 overflow-y-auto overflow-x-hidden ${isAnimating ? 'opacity-100' : 'opacity-0'}`}
       onClick={handleBackdropClick}
     >
-      <div className="min-h-full flex justify-center items-start py-10">
+      <div className="min-h-full flex justify-center items-start py-10 px-4 md:px-8">
         <div
           ref={modalRef}
           className={`relative w-full max-w-6xl bg-white rounded-2xl shadow-2xl transform transition-all duration-300 ${isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
