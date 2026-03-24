@@ -58,12 +58,6 @@ const ProjectsPage: React.FC = () => {
         setLoading(false);
       });
 
-      // Get projects (will use cache if available)
-      projectService.getProjects().then((projects) => {
-        setProjects(projects);
-        setLoading(false);
-      });
-
       // Update cache info for debugging
       setCacheInfo(projectService.getCacheInfo());
     } else {
