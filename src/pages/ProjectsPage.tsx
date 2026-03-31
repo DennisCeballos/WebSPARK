@@ -60,12 +60,6 @@ const ProjectsPage: React.FC = () => {
         setLoading(false);
       });
 
-      // Get projects (will use cache if available)
-      projectService.getProjects().then((projects) => {
-        setProjects(projects);
-        setLoading(false);
-      });
-
       // Update cache info for debugging
       setCacheInfo(projectService.getCacheInfo());
     } else {
@@ -292,7 +286,7 @@ const ProjectsPage: React.FC = () => {
 
                       transition={{ duration: 0.5, delay: index * 0.03 }}
 
-                      className="bg-white rounded-2xl shadow-lg overflow-hidden group transition-all duration-300 hover:ring-2 hover:ring-spark-coral/70 hover:ring-offset-white sm:hover:-translate-y-2 flex flex-col md:flex-row h-[250px]"
+                      className="bg-white rounded-2xl shadow-lg overflow-hidden group transition-all duration-300 hover:ring-2 hover:ring-spark-coral/70 hover:ring-offset-white sm:hover:-translate-y-2 flex flex-col md:flex-row min-h-[250px] md:h-[250px]"
                     >
                       {/* IMAGE (desktop only) */}
                       <div
@@ -317,7 +311,7 @@ const ProjectsPage: React.FC = () => {
                       {/* CONTENT */}
                       <div
                         className={`
-                        flex flex-col justify-between p-5 sm:p-6 flex-1
+                        flex flex-col p-5 sm:p-6 flex-1
                         ${isEven ? 'md:order-1' : 'md:order-2'}
                         `}
                       >
