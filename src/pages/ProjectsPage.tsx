@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { ArrowLeft, ExternalLink, Code, Eye, SlidersHorizontal } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { projectService } from '../services/projectService';
 import { Project } from '../types/Project';
 import ProjectDetailModal from '../components/ProjectDetailModal';
@@ -18,7 +18,9 @@ const ProjectsPage: React.FC = () => {
   const [cacheInfo, setCacheInfo] = useState<any>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
+  
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedTechs = searchParams.get('techs')?.split(',').filter(Boolean) ?? [];
   const techCountMap: Record<string, number> = {};
 
   const filteredProjects = selectedTechs.length === 0
@@ -110,13 +112,18 @@ const ProjectsPage: React.FC = () => {
   const getProjectDescription = (project: Project) => project.tituloClickbait || '';
   const getProjectTechnologies = (project: Project) => project.tecnologias || [];
   const getProjectLink = (project: Project) => project.enlaceInscripcion || '#';
-
+  
   const handleTechClick = (tech: string) => {
-    setSelectedTechs(prev =>
-      prev.includes(tech)
-        ? prev.filter(t => t !== tech)
-        : [...prev, tech]
-    );
+    const next = selectedTechs.includes(tech)
+      ? selectedTechs.filter(t => t !== tech)
+      : [...selectedTechs, tech];
+
+    if (next.length === 0) {
+      searchParams.delete('techs');
+      setSearchParams(searchParams, { replace: true });
+    } else {
+      setSearchParams({ techs: next.join(',') }, { replace: true });
+    }
   };
 
   return (
