@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { ArrowLeft, ExternalLink, Code, Eye } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Code, Eye, SlidersHorizontal } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { projectService } from '../services/projectService';
 import { Project } from '../types/Project';
@@ -215,6 +215,18 @@ const ProjectsPage: React.FC = () => {
           </div>
           {availableTechs.length > 0 && (
             <div className="mb-10">
+              {/* Título de filtros */}
+              <div className="flex items-center gap-2 mb-3">
+                <SlidersHorizontal size={16} className="text-spark-blue" />
+                <span className="text-sm font-inter font-semibold text-spark-blue uppercase tracking-wide">
+                  Filtrar por tecnología
+                </span>
+                {selectedTechs.length > 0 && (
+                  <span className="ml-1 bg-spark-coral text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                    {selectedTechs.length}
+                  </span>
+                )}
+              </div>
 
               {/* Contenedor scroll mobile */}
               <div className="flex gap-3 overflow-x-auto md:flex-wrap md:overflow-visible pb-2">
