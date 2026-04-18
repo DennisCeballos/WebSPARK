@@ -180,15 +180,20 @@ class ProjectService {
         });
       });
 
+      // Eliminar los proyectos que no sean de iniciativaSPARK
+      // OJITO DEUDA TECNICA
+      const proyectosFiltrados = firebaseProjects.filter(project => project.origen === 'IniciativaSpark');
+      // OJITO DEUDA TECNICA
+
       // Update cache
-      this.cache.projects = firebaseProjects;
+      this.cache.projects = proyectosFiltrados;
       this.cache.lastUpdated = Date.now();
       this.cache.isLoading = false;
 
-      console.log(`Fetched ${firebaseProjects.length} projects from Firebase`);
+      console.log(`Fetched ${proyectosFiltrados.length} projects from Firebase`);
       this.notifyListeners();
 
-      return firebaseProjects;
+      return proyectosFiltrados;
     } catch (error) {
       console.error('Error fetching projects from Firebase:', error);
 
